@@ -36,30 +36,29 @@ public class Controlador {
     public Controlador(){       
         cliente = new Cliente();
         
-        clientes = cliente.leerXML("cliente.xml");
-        System.out.println("Tamaño vector cliente: " + clientes.size());
+        clientes = new ArrayList<>();
         
         pedido = new Pedido();
         
-        pedidos = pedido.leerXML("pedido.xml");
+        pedidos =  new ArrayList<>();;
         
         producto = new Producto();
         
-        productos = producto.leerXML("producto.xml");
+        productos =  new ArrayList<>();
         
         proveedor = new Proveedor();
         
-        proveedores = proveedor.leerXML("proveedor.xml");
+        proveedores =  new ArrayList<>();
         
         empleado = new Empleado();
         
-        empleados = empleado.leerXML("empleado.xml");
+        empleados =  new ArrayList<>();
     }
     
     public void agregarCliente(Cliente c){
         clientes.add(c);
         
-        c.escribirXML(clientes);
+        //c.escribirXML(clientes);
         
     }
 
@@ -70,7 +69,7 @@ public class Controlador {
             clientes.set(posicionCliente, cliente_modificado);
         }
         
-        cliente_modificado.escribirXML(clientes);
+        //cliente_modificado.escribirXML(clientes);
     }
 
     public void borrarCliente(Cliente c){
@@ -79,7 +78,7 @@ public class Controlador {
             clientes.remove(c);
         
         System.out.println("saize clientes: " + clientes.isEmpty());
-        c.escribirXML(clientes);
+        //c.escribirXML(clientes);
         
     }
     public ArrayList<Cliente> listaClientes(){
@@ -126,7 +125,7 @@ public class Controlador {
             pedido.setCliente(c);
         }
         
-        c.escribirXML(clientes);
+        //c.escribirXML(clientes);
     }
     
     public void borrarRelacionPedidoCliente(Cliente c, Pedido p){
@@ -137,14 +136,14 @@ public class Controlador {
         }
         c.borrarPedido(p);
         
-        c.escribirXML(clientes);
+        //c.escribirXML(clientes);
     }
     
     public void relacionEmpleadoCliente(Cliente c, Empleado e){
         c.setEmpleadoTienda(e);
         e.setClientes_tienda(c);
         
-        c.escribirXML(clientes);
+        //c.escribirXML(clientes);
         
         
     }
@@ -153,21 +152,21 @@ public class Controlador {
         c.borrarEmpleadoTienda(e);
         e.borrarCliente(c);
         
-        c.escribirXML(clientes);
+        //c.escribirXML(clientes);
     }
     
     public void relacionProductoPedido(Producto prod, Pedido ped){
         prod.setPedidos_producto(ped);
         ped.agregarProducto(prod);
         
-        ped.escribirXML(pedidos);
+        //ped.escribirXML(pedidos);
     }
     
     public void borrarRelacionProductoPedido(Producto prod, Pedido ped){
         prod.borrarPedido(ped);
         ped.borrarProducto(prod);
         
-        ped.escribirXML(pedidos);
+        //ped.escribirXML(pedidos);
     }
     
     public void relacionProveedorProducto(Producto prod, Proveedor prov){
@@ -193,7 +192,7 @@ public class Controlador {
     public void agregarPedido(Pedido p){
         pedidos.add(p);
                 
-        p.escribirXML(pedidos);        
+        //p.escribirXML(pedidos);        
     }
     
     public void modificarPedido(Pedido pedido_borrar, Pedido pedido_modificado){
@@ -203,14 +202,14 @@ public class Controlador {
             pedidos.set(posicionPedido, pedido_modificado);
         }
         
-        pedido_modificado.escribirXML(pedidos);
+        //pedido_modificado.escribirXML(pedidos);
     }
     
     public void borrarPedido(Pedido p){
         if(pedidos != null)
             pedidos.remove(p);
         
-        p.escribirXML(pedidos);        
+        //p.escribirXML(pedidos);        
     }
     
     public ArrayList<Pedido> listaPedidos(){
@@ -242,7 +241,7 @@ public class Controlador {
     public void agregarProducto(Producto p){
         productos.add(p);
         
-        p.escribirXML(productos);
+        //p.escribirXML(productos);
     }
     
     public void modificarProducto(Producto producto_borrar, Producto producto_modificado){
@@ -252,14 +251,14 @@ public class Controlador {
             productos.set(posicionProducto, producto_modificado);
         }
         
-        producto_modificado.escribirXML(productos);
+        //producto_modificado.escribirXML(productos);
     }
     
     public void borrarProducto(Producto p){
         if(productos != null)
             productos.remove(p);
         
-        p.escribirXML(productos);
+        //p.escribirXML(productos);
     }
     
     public ArrayList<Producto> listaProductos(){
@@ -289,7 +288,7 @@ public class Controlador {
     public void agregarProveedor(Proveedor p){
         proveedores.add(p);
 
-        p.escribirXML(proveedores);
+       // p.escribirXML(proveedores);
     }
     
     public void modificarProveedor(Proveedor proveedor_borrar, Proveedor proveedor_modificado){
@@ -299,14 +298,14 @@ public class Controlador {
             proveedores.set(posicionProveedor, proveedor_modificado);
         }
         
-        proveedor_modificado.escribirXML(proveedores);
+       // proveedor_modificado.escribirXML(proveedores);
     }
     
     public void borrarProveedor(Proveedor p){
         if(proveedores != null)
             proveedores.remove(p);
         
-        p.escribirXML(proveedores);
+        //p.escribirXML(proveedores);
     }
     
     public ArrayList<Proveedor> listaProveedores(){
@@ -336,7 +335,7 @@ public class Controlador {
     public void agregarEmpleado(Empleado e){
         empleados.add(e);
         
-        e.escribirXML(empleados);
+        //e.escribirXML(empleados);
     }
     
     public void modificarEmpleado(Empleado empleado_borrar, Empleado empleado_modificado){
@@ -346,14 +345,14 @@ public class Controlador {
             empleados.set(posicionEmpleado, empleado_modificado);
         }
         
-        empleado_modificado.escribirXML(empleados);
+        //empleado_modificado.escribirXML(empleados);
     }
     
     public void borrarEmpleado(Empleado e){
         if(empleados != null)
             empleados.remove(e);
         
-        e.escribirXML(empleados);
+        //e.escribirXML(empleados);
     }
     
     public ArrayList<Empleado> listaEmpleados(){
