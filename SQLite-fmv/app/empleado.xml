@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tienda>
+    <empleados>
+        <empleado>
+            <id>2131</id>
+            <nombre>23</nombre>
+            <cargo>213</cargo>
+        </empleado>
+        <empleado>
+            <id>123</id>
+            <nombre>123</nombre>
+            <cargo>123</cargo>
+        </empleado>
+    </empleados>
+</tienda>
