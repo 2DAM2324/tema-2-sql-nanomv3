@@ -6,6 +6,7 @@ package Tienda.modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -15,17 +16,17 @@ import java.sql.Statement;
  */
 public class ConexionDB {
 
-    private Connection conexion;
+    private Connection conexion = null;
 
     public ConexionDB() {
         try {
             Class.forName("org.sqlite.JDBC");
 
-            String url = "jdbc:sqlite:tienda.db3";
+            String url = "jdbc:sqlite:C:/Users/nanom/OneDrive/Escritorio/ACCESO A DATOS/SQLite/tienda.db3";
             conexion = DriverManager.getConnection(url);
 
-            System.out.println("Conexión exitosa a la base de datos SQLite.");
-
+            System.out.println("Conexion exitosa a la base de datos SQLite.");
+            
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -45,3 +46,4 @@ public class ConexionDB {
             e.printStackTrace();
         }
     }
+}

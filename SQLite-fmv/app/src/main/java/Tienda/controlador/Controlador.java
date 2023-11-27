@@ -36,7 +36,7 @@ public class Controlador {
     public Controlador(){       
         cliente = new Cliente();
         
-        clientes = new ArrayList<>();
+        clientes = cliente.obtenerClientesBD();
         
         pedido = new Pedido();
         
@@ -58,7 +58,7 @@ public class Controlador {
     public void agregarCliente(Cliente c){
         clientes.add(c);
         
-        //c.escribirXML(clientes);
+        c.introducirDatosDeClientesEnBD(c);
         
     }
 
@@ -69,7 +69,7 @@ public class Controlador {
             clientes.set(posicionCliente, cliente_modificado);
         }
         
-        //cliente_modificado.escribirXML(clientes);
+        cliente_modificado.modificarDatosClienteEnBD(cliente_modificado, cliente_borrar);
     }
 
     public void borrarCliente(Cliente c){
@@ -78,7 +78,7 @@ public class Controlador {
             clientes.remove(c);
         
         System.out.println("saize clientes: " + clientes.isEmpty());
-        //c.escribirXML(clientes);
+        c.borrarDatosClienteEnBD(c);
         
     }
     public ArrayList<Cliente> listaClientes(){
