@@ -199,6 +199,29 @@ public class Pedido {
                 }
             }
         }
-
-    } 
+    }
+    
+    public void borrarDatosPedidoEnBD(Pedido p){
+        String sentenciaSql = "DELETE FROM Pedidos WHERE id_pedido = ?";
+        PreparedStatement sentencia = null;
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setInt(1, p.getId());
+            sentencia.executeUpdate();
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia!= null){
+                try{
+                    sentencia.close();
+                    conexion.cerrarConexion();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
 }

@@ -209,18 +209,22 @@ public class Controlador {
         if(pedidos != null)
             pedidos.remove(p);
         
-        //p.escribirXML(pedidos);        
+        p.borrarDatosPedidoEnBD(p);        
     }
     
     public ArrayList<Pedido> listaPedidos(){
         return pedidos;
     }
     
-    public Pedido getPedidoPorId(int id){
+    public Pedido getPedidoPorId(String id){
         Pedido p = new Pedido();
         System.out.println("getPedidoPorid");
-        for(Pedido pedido: pedidos){
-            if(pedido.getId() == id){
+        
+        int idInt = Integer.parseInt(id);
+        
+        for(Pedido pedido: pedidos){         
+            
+            if(pedido.getId() == idInt){
                 p = pedido;
                 System.out.println("han coincidio");
             }
