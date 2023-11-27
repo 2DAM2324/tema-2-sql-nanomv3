@@ -693,32 +693,34 @@
                                           <Component id="relacion_cliente_pedido_del_button" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="id_label_pedido" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="fecha_label_pedido" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="estado_label_pedido" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="introducir_id_pedido" alignment="0" pref="245" max="32767" attributes="0"/>
-                                          <Component id="introducir_fecha_pedido" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="introducir_estado_pedido" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
                                   <Component id="jScrollPane11" alignment="0" min="-2" pref="452" max="-2" attributes="0"/>
                                   <Component id="jScrollPane10" alignment="0" min="-2" pref="452" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="label_relacion_pedido1" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="relacion_introducir_producto_pedido" min="-2" pref="252" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                          </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="334" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="fecha_label_pedido" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="estado_label_pedido" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="introducir_fecha_pedido" alignment="0" max="32767" attributes="0"/>
+                                                          <Component id="introducir_estado_pedido" alignment="0" min="-2" pref="245" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="label_relacion_pedido1" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="relacion_introducir_producto_pedido" min="-2" pref="252" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -750,12 +752,7 @@
                               <Component id="jScrollPane2" min="-2" pref="92" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="id_label_pedido" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="introducir_id_pedido" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="fecha_label_pedido" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="introducir_fecha_pedido" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -765,7 +762,7 @@
                           <Component id="estado_label_pedido" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="introducir_estado_pedido" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -795,7 +792,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane11" min="-2" pref="92" max="-2" attributes="0"/>
-                      <EmptySpace pref="79" max="32767" attributes="0"/>
+                      <EmptySpace pref="84" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -846,11 +843,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="id_label_pedido">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="ID:"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="fecha_label_pedido">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fecha:"/>
@@ -860,14 +852,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Estado:"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="introducir_id_pedido">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="introducir_id_pedidoActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="introducir_fecha_pedido">
               <AuxValues>

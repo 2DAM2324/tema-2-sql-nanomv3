@@ -192,7 +192,7 @@ public class Controlador {
     public void agregarPedido(Pedido p){
         pedidos.add(p);
                 
-        //p.escribirXML(pedidos);        
+        p.introducirDatosDePedidosEnBD(p);        
     }
     
     public void modificarPedido(Pedido pedido_borrar, Pedido pedido_modificado){

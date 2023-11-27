@@ -128,10 +128,8 @@ public class Ventana1 extends javax.swing.JFrame {
         panel_pedido = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla_datos_pedido = new javax.swing.JTable();
-        id_label_pedido = new javax.swing.JLabel();
         fecha_label_pedido = new javax.swing.JLabel();
         estado_label_pedido = new javax.swing.JLabel();
-        introducir_id_pedido = new javax.swing.JTextField();
         introducir_fecha_pedido = new javax.swing.JTextField();
         introducir_estado_pedido = new javax.swing.JTextField();
         button_add_pedido = new javax.swing.JButton();
@@ -648,17 +646,9 @@ public class Ventana1 extends javax.swing.JFrame {
             tabla_datos_pedido.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        id_label_pedido.setText("ID:");
-
         fecha_label_pedido.setText("Fecha:");
 
         estado_label_pedido.setText("Estado:");
-
-        introducir_id_pedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                introducir_id_pedidoActionPerformed(evt);
-            }
-        });
 
         button_add_pedido.setText("Añadir");
         button_add_pedido.addActionListener(new java.awt.event.ActionListener() {
@@ -819,28 +809,28 @@ public class Ventana1 extends javax.swing.JFrame {
                                 .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(relacion_cliente_pedido_add_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(relacion_cliente_pedido_del_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_pedidoLayout.createSequentialGroup()
-                                .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(id_label_pedido)
-                                    .addComponent(fecha_label_pedido)
-                                    .addComponent(estado_label_pedido))
-                                .addGap(24, 24, 24)
-                                .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(introducir_id_pedido, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                                    .addComponent(introducir_fecha_pedido)
-                                    .addComponent(introducir_estado_pedido)))
                             .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_pedidoLayout.createSequentialGroup()
                                 .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_pedidoLayout.createSequentialGroup()
-                                        .addComponent(label_relacion_pedido1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(relacion_introducir_producto_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(38, 38, 38))
                                     .addGroup(panel_pedidoLayout.createSequentialGroup()
                                         .addComponent(jLabel6)
-                                        .addGap(334, 334, 334)))
+                                        .addGap(334, 334, 334))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_pedidoLayout.createSequentialGroup()
+                                        .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(panel_pedidoLayout.createSequentialGroup()
+                                                .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(fecha_label_pedido)
+                                                    .addComponent(estado_label_pedido))
+                                                .addGap(24, 24, 24)
+                                                .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(introducir_fecha_pedido)
+                                                    .addComponent(introducir_estado_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(panel_pedidoLayout.createSequentialGroup()
+                                                .addComponent(label_relacion_pedido1)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(relacion_introducir_producto_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(38, 38, 38)))
                                 .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(relacion_producto_pedido_add_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(relacion_producto_pedido_del_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))))
@@ -860,11 +850,7 @@ public class Ventana1 extends javax.swing.JFrame {
                     .addGroup(panel_pedidoLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42)
-                .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id_label_pedido)
-                    .addComponent(introducir_id_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(43, 43, 43)
                 .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fecha_label_pedido)
                     .addComponent(introducir_fecha_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -872,7 +858,7 @@ public class Ventana1 extends javax.swing.JFrame {
                 .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(estado_label_pedido)
                     .addComponent(introducir_estado_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
+                .addGap(96, 96, 96)
                 .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_pedidoLayout.createSequentialGroup()
                         .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -896,7 +882,7 @@ public class Ventana1 extends javax.swing.JFrame {
                     .addComponent(relacion_cliente_pedido_del_button, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         paginas.addTab("Pedido", panel_pedido);
@@ -2683,8 +2669,8 @@ public class Ventana1 extends javax.swing.JFrame {
     }
     
     private void button_add_pedidoActionPerformed(java.awt.event.ActionEvent evt){
-        if(!introducir_id_pedido.getText().isEmpty() && !introducir_fecha_pedido.getText().isEmpty() && !introducir_estado_pedido.getText().isEmpty()){  
-            Pedido p = new Pedido(Integer.valueOf(introducir_id_pedido.getText()), introducir_fecha_pedido.getText(),introducir_estado_pedido.getText());
+        if(!introducir_fecha_pedido.getText().isEmpty() && !introducir_estado_pedido.getText().isEmpty()){  
+            Pedido p = new Pedido(introducir_fecha_pedido.getText(),introducir_estado_pedido.getText());
             if(controlador.comprobarId(p)){
                 controlador.agregarPedido(p);
             }else{
@@ -2710,7 +2696,7 @@ public class Ventana1 extends javax.swing.JFrame {
                 String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
                 System.out.println("id: "+ idPedidoSeleccionado);
                 Pedido pedidoSeleccionado = controlador.getPedidoPorId(Integer.valueOf(idPedidoSeleccionado));
-                Pedido p = new Pedido(Integer.valueOf(introducir_id_pedido.getText()), introducir_estado_pedido.getText(), introducir_fecha_pedido.getText());
+                Pedido p = new Pedido(introducir_estado_pedido.getText(), introducir_fecha_pedido.getText());
                 
                 controlador.modificarPedido(pedidoSeleccionado, p);
                 ArrayList<Pedido> pedidos = controlador.listaPedidos();
@@ -2940,7 +2926,6 @@ public class Ventana1 extends javax.swing.JFrame {
     private javax.swing.JLabel dni_label_empleado;
     private javax.swing.JLabel estado_label_pedido;
     private javax.swing.JLabel fecha_label_pedido;
-    private javax.swing.JLabel id_label_pedido;
     private javax.swing.JLabel id_label_producto;
     private javax.swing.JLabel id_label_proveedor;
     private javax.swing.JTextField introducir_cargo_empleado;
@@ -2949,7 +2934,6 @@ public class Ventana1 extends javax.swing.JFrame {
     private javax.swing.JTextField introducir_dni_empleado;
     public javax.swing.JTextField introducir_estado_pedido;
     public javax.swing.JTextField introducir_fecha_pedido;
-    public javax.swing.JTextField introducir_id_pedido;
     private javax.swing.JTextField introducir_id_producto;
     private javax.swing.JTextField introducir_id_proveedor;
     private javax.swing.JTextField introducir_nom_empresa_proveedor;

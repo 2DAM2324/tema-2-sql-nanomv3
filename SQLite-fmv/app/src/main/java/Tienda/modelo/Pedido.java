@@ -50,7 +50,6 @@ public class Pedido {
 
     // Constructor
     public Pedido() {
-        setId(0);
         setEstado("");
         setFecha(null);
         setAsignado(false);
@@ -61,6 +60,16 @@ public class Pedido {
     }
 
     // Constructor por parametros
+    public Pedido(String fecha, String estado) {
+        setEstado(estado);
+        setFecha(fecha);
+        setAsignado(false);
+        cliente = new ArrayList<>();
+        productos_pedido = new ArrayList<>();
+        
+        conexion = new ConexionDB();
+    }
+    
     public Pedido(int id, String fecha, String estado) {
         setId(id);
         setEstado(estado);
@@ -153,4 +162,43 @@ public class Pedido {
 
         return pedidos;
     }
+    
+    public void introducirDatosDePedidosEnBD(Pedido p){
+        
+        System.out.println("Entro en introducir los datos de pedidos");
+        
+        String sentenciaSql = "INSERT INTO Pedidos (fecha, estado) VALUES (?, ?)";
+        
+        PreparedStatement sentencia = null;
+        
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, p.getFecha());
+            sentencia.setString(2, p.getEstado());
+            sentencia.executeUpdate();
+            
+            ResultSet generatedKeys = sentencia.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int idGenerado = generatedKeys.getInt(1);
+                p.setId(idGenerado);
+            } else {
+                System.out.println("No se pudo obtener la clave generada para el pedido.");
+            }
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia != null){
+                try{
+                    sentencia.close();
+                    conexion.cerrarConexion();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+
+    } 
 }
