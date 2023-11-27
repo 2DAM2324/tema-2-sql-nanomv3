@@ -5,6 +5,9 @@
 package Tienda.modelo;
 
 import java.io.File;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
@@ -24,12 +27,14 @@ import org.w3c.dom.NodeList;
  * @author nanom
  */
 public class Pedido {
-    private String id;
+    private int id;
     private String estado;
     private String fecha;
     private ArrayList<Producto> productos_pedido;
     private ArrayList<Cliente> cliente;
     private boolean asignado;
+    private ConexionDB conexion;
+
     
     public ArrayList<Producto> listaProductosPedido() {
         return productos_pedido;
@@ -45,30 +50,34 @@ public class Pedido {
 
     // Constructor
     public Pedido() {
-        setId("");
+        setId(0);
         setEstado("");
         setFecha(null);
         setAsignado(false);
         cliente = new ArrayList<>();
         productos_pedido = new ArrayList<>();
+        
+        conexion = new ConexionDB();
     }
 
     // Constructor por parametros
-    public Pedido(String id, String fecha, String estado) {
+    public Pedido(int id, String fecha, String estado) {
         setId(id);
         setEstado(estado);
         setFecha(fecha);
         setAsignado(false);
         cliente = new ArrayList<>();
         productos_pedido = new ArrayList<>();
+        
+        conexion = new ConexionDB();
     }
 
     // Getters y Setters
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -114,5 +123,34 @@ public class Pedido {
     public void borrarCliente(Cliente c){
         cliente.remove(c);
         setAsignado(false);
+    }
+    
+    public ArrayList<Pedido> obtenerPedidosBD() {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+
+        try {
+            //Creo una consulta
+            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT * FROM Pedidos");
+
+            //Ejecuto la consulta
+            ResultSet resultados = statement.executeQuery();
+
+            //Introduzco los datos de la bd y voy creando los clientes
+            while (resultados.next()) {
+                int id = resultados.getInt("id_pedido");
+                String fecha = resultados.getString("fecha");
+                String estado = resultados.getString("estado");
+
+                Pedido pedido = new Pedido(id, fecha, estado);
+                pedidos.add(pedido);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conexion.cerrarConexion();
+        }
+
+        return pedidos;
     }
 }

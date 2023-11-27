@@ -1711,7 +1711,7 @@ public class Ventana1 extends javax.swing.JFrame {
         int fila_seleccionada = tabla_datos_pedido.getSelectedRow();
         if(fila_seleccionada >= 0){
             String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
+            Pedido pedidoSeleccionado = controlador.getPedidoPorId(Integer.valueOf(idPedidoSeleccionado));
             ArrayList<Cliente> cliente = pedidoSeleccionado.getCliente();
             ArrayList<Producto> productos = pedidoSeleccionado.listaProductosPedido();
             
@@ -2168,10 +2168,10 @@ public class Ventana1 extends javax.swing.JFrame {
                 
                 String dniClienteSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
                 Cliente clienteSeleccionado = controlador.getClientePorDni(dniClienteSeleccionado);
-                Pedido p = controlador.getPedidoPorId(relacion_introducir_pedido_cliente.getText());
+                Pedido p = controlador.getPedidoPorId(Integer.valueOf(relacion_introducir_pedido_cliente.getText()));
                 System.out.println("asignado: " + p.isAsignado());
                 if(!p.isAsignado()){
-                    if(!p.getId().isEmpty()){
+                    if(p.getId() != 0){
                         controlador.relacionPedidosCliente(clienteSeleccionado, p);
                         ArrayList<Pedido> pedidos = clienteSeleccionado.listaPedidosCliente();
                         mostrarRelacionPedidosCliente(pedidos);
@@ -2200,7 +2200,7 @@ public class Ventana1 extends javax.swing.JFrame {
             Cliente clienteSeleccionado = controlador.getClientePorDni(dniCliente);
             
             String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
+            Pedido pedidoSeleccionado = controlador.getPedidoPorId(Integer.valueOf(idPedidoSeleccionado));
 
             model.removeRow(fila_seleccionada);
 
@@ -2276,7 +2276,7 @@ public class Ventana1 extends javax.swing.JFrame {
             if(!relacion_introducir_cliente_pedido.getText().isEmpty()){
                 
                 String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-                Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
+                Pedido pedidoSeleccionado = controlador.getPedidoPorId(Integer.valueOf(idPedidoSeleccionado));
                 if(!pedidoSeleccionado.isAsignado()){
                     Cliente c = controlador.getClientePorDni(relacion_introducir_cliente_pedido.getText());
                     
@@ -2306,7 +2306,7 @@ public class Ventana1 extends javax.swing.JFrame {
 
         if (fila_seleccionada >= 0) {
             String idPedido = (String) model_pedido.getValueAt(fila_pedido, 0);
-            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedido);
+            Pedido pedidoSeleccionado = controlador.getPedidoPorId(Integer.valueOf(idPedido));
             if(pedidoSeleccionado.isAsignado()){
                 String dniClienteSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
                 Cliente clienteSeleccionado = controlador.getClientePorDni(dniClienteSeleccionado);
@@ -2331,7 +2331,7 @@ public class Ventana1 extends javax.swing.JFrame {
             if(!relacion_introducir_producto_pedido.getText().isEmpty()){
                 
                 String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-                Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
+                Pedido pedidoSeleccionado = controlador.getPedidoPorId(Integer.valueOf(idPedidoSeleccionado));
                 Producto p = controlador.getProductoPorId(relacion_introducir_producto_pedido.getText());
                     
                     if(!p.getId().isEmpty()){
@@ -2358,7 +2358,7 @@ public class Ventana1 extends javax.swing.JFrame {
 
         if (fila_seleccionada >= 0) {
             String idPedido = (String) model_pedido.getValueAt(fila_pedido, 0);
-            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedido);
+            Pedido pedidoSeleccionado = controlador.getPedidoPorId(Integer.valueOf(idPedido));
             
             String idProductoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
             Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado);
@@ -2412,9 +2412,9 @@ public class Ventana1 extends javax.swing.JFrame {
                 
                 String idProductoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
                 Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado);
-                Pedido p = controlador.getPedidoPorId(relacion_introducir_pedido_producto.getText());
+                Pedido p = controlador.getPedidoPorId(Integer.valueOf(relacion_introducir_pedido_producto.getText()));
                     
-                    if(!p.getId().isEmpty()){
+                    if(p.getId() != 0){
                         controlador.relacionProductoPedido(productoSeleccionado, p);
                         ArrayList<Pedido> pedidos = productoSeleccionado.listaPedidosProductos();
                         mostrarRelacionPedidoProducto(pedidos);
@@ -2441,7 +2441,7 @@ public class Ventana1 extends javax.swing.JFrame {
             Producto productoSeleccionado = controlador.getProductoPorId(idProducto);
             
             String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
+            Pedido pedidoSeleccionado = controlador.getPedidoPorId(Integer.valueOf(idPedidoSeleccionado));
 
             model.removeRow(fila_seleccionada);
 
@@ -2684,7 +2684,7 @@ public class Ventana1 extends javax.swing.JFrame {
     
     private void button_add_pedidoActionPerformed(java.awt.event.ActionEvent evt){
         if(!introducir_id_pedido.getText().isEmpty() && !introducir_fecha_pedido.getText().isEmpty() && !introducir_estado_pedido.getText().isEmpty()){  
-            Pedido p = new Pedido(introducir_id_pedido.getText(), introducir_fecha_pedido.getText(),introducir_estado_pedido.getText());
+            Pedido p = new Pedido(Integer.valueOf(introducir_id_pedido.getText()), introducir_fecha_pedido.getText(),introducir_estado_pedido.getText());
             if(controlador.comprobarId(p)){
                 controlador.agregarPedido(p);
             }else{
@@ -2709,8 +2709,8 @@ public class Ventana1 extends javax.swing.JFrame {
                 System.out.println("Entro en if");
                 String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
                 System.out.println("id: "+ idPedidoSeleccionado);
-                Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
-                Pedido p = new Pedido(introducir_id_pedido.getText(), introducir_estado_pedido.getText(), introducir_fecha_pedido.getText());
+                Pedido pedidoSeleccionado = controlador.getPedidoPorId(Integer.valueOf(idPedidoSeleccionado));
+                Pedido p = new Pedido(Integer.valueOf(introducir_id_pedido.getText()), introducir_estado_pedido.getText(), introducir_fecha_pedido.getText());
                 
                 controlador.modificarPedido(pedidoSeleccionado, p);
                 ArrayList<Pedido> pedidos = controlador.listaPedidos();
@@ -2734,7 +2734,7 @@ public class Ventana1 extends javax.swing.JFrame {
             System.out.println("entro en el if");
             // Obt�n el cliente seleccionado
             String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
+            Pedido pedidoSeleccionado = controlador.getPedidoPorId(Integer.valueOf(idPedidoSeleccionado));
             System.out.println("guardo el cliente selecionao");
 
             // Borra el cliente seleccionado del modelo de tabla

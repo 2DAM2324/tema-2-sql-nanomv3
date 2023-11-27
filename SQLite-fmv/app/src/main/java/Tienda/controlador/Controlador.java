@@ -40,7 +40,7 @@ public class Controlador {
         
         pedido = new Pedido();
         
-        pedidos =  new ArrayList<>();;
+        pedidos =  pedido.obtenerPedidosBD();
         
         producto = new Producto();
         
@@ -216,11 +216,11 @@ public class Controlador {
         return pedidos;
     }
     
-    public Pedido getPedidoPorId(String id){
+    public Pedido getPedidoPorId(int id){
         Pedido p = new Pedido();
         System.out.println("getPedidoPorid");
         for(Pedido pedido: pedidos){
-            if(pedido.getId().equalsIgnoreCase(id)){
+            if(pedido.getId() == id){
                 p = pedido;
                 System.out.println("han coincidio");
             }
@@ -231,7 +231,7 @@ public class Controlador {
     public boolean comprobarId(Pedido p){
         
         for(Pedido pedido : pedidos){
-            if(pedido.getId().equals(p.getId())){
+            if(pedido.getId() == p.getId()){
                 return false;
             }
         }
