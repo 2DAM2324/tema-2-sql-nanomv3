@@ -1840,13 +1840,11 @@
                                   <Component id="jScrollPane15" alignment="0" min="-2" pref="452" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="dni_label_empleado" min="-2" pref="54" max="-2" attributes="0"/>
                                           <Component id="nombre_label_empleado" min="-2" pref="54" max="-2" attributes="0"/>
                                           <Component id="cargo_label_empleado" min="-2" pref="54" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="introducir_dni_empleado" alignment="0" min="-2" pref="261" max="-2" attributes="0"/>
                                           <Component id="introducir_nombre_empleado" alignment="0" min="-2" pref="261" max="-2" attributes="0"/>
                                           <Component id="introducir_cargo_empleado" alignment="0" min="-2" pref="261" max="-2" attributes="0"/>
                                       </Group>
@@ -1873,12 +1871,7 @@
                               <Component id="button_del_empleado" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="dni_label_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="introducir_dni_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="introducir_nombre_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="nombre_label_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1888,7 +1881,7 @@
                           <Component id="introducir_cargo_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cargo_label_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -1903,7 +1896,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane15" min="-2" pref="92" max="-2" attributes="0"/>
-                      <EmptySpace pref="198" max="32767" attributes="0"/>
+                      <EmptySpace pref="203" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1979,16 +1972,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_add_empleadoActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="dni_label_empleado">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="DNI:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="introducir_dni_empleado">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="introducir_dni_empleadoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="introducir_nombre_empleado">

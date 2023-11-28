@@ -352,7 +352,7 @@ public class Controlador {
     public void agregarEmpleado(Empleado e){
         empleados.add(e);
         
-        //e.escribirXML(empleados);
+        introducirDatosDeEmpleadosEnBD(e);
     }
     
     public void modificarEmpleado(Empleado empleado_borrar, Empleado empleado_modificado){
@@ -399,7 +399,7 @@ public class Controlador {
     }
     
     
-    ////////////////// BASE DE DATOS
+    ////////////////// BASE DE DATOS //////////////////////
     
     
     
@@ -911,5 +911,43 @@ public class Controlador {
         }
 
         return empleados;
+    }
+    
+    public void introducirDatosDeEmpleadosEnBD(Empleado e){
+        
+        System.out.println("Entro en introducir los datos de empleado");
+        
+        String sentenciaSql = "INSERT INTO Empleados (nombre_empleado, cargo) VALUES (?, ?)";
+        
+        PreparedStatement sentencia = null;
+        
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, e.getNombre());
+            sentencia.setString(2, e.getCargo());
+            sentencia.executeUpdate();
+            
+            ResultSet generatedKeys = sentencia.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int idGenerado = generatedKeys.getInt(1);
+                System.out.println("Id generada: " + idGenerado);
+                e.setId(idGenerado);
+            } else {
+                System.out.println("No se pudo obtener la clave generada para el pedido.");
+            }
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia != null){
+                try{
+                    sentencia.close();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
     }
 }

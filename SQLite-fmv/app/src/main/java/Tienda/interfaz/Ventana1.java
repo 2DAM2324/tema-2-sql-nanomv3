@@ -205,8 +205,6 @@ public class Ventana1 extends javax.swing.JFrame {
         button_del_empleado = new javax.swing.JButton();
         button_mod_empleado = new javax.swing.JButton();
         button_add_empleado = new javax.swing.JButton();
-        dni_label_empleado = new javax.swing.JLabel();
-        introducir_dni_empleado = new javax.swing.JTextField();
         introducir_nombre_empleado = new javax.swing.JTextField();
         introducir_cargo_empleado = new javax.swing.JTextField();
         nombre_label_empleado = new javax.swing.JLabel();
@@ -1436,14 +1434,6 @@ public class Ventana1 extends javax.swing.JFrame {
             }
         });
 
-        dni_label_empleado.setText("DNI:");
-
-        introducir_dni_empleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                introducir_dni_empleadoActionPerformed(evt);
-            }
-        });
-
         introducir_nombre_empleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 introducir_nombre_empleadoActionPerformed(evt);
@@ -1548,12 +1538,10 @@ public class Ventana1 extends javax.swing.JFrame {
                             .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panel_empleadoLayout.createSequentialGroup()
                                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(dni_label_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nombre_label_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cargo_label_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(introducir_dni_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(introducir_nombre_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(introducir_cargo_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1571,11 +1559,7 @@ public class Ventana1 extends javax.swing.JFrame {
                         .addComponent(button_mod_empleado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(button_del_empleado)))
-                .addGap(54, 54, 54)
-                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dni_label_empleado)
-                    .addComponent(introducir_dni_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(32, 32, 32)
                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(introducir_nombre_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nombre_label_empleado))
@@ -1583,7 +1567,7 @@ public class Ventana1 extends javax.swing.JFrame {
                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(introducir_cargo_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cargo_label_empleado))
-                .addGap(147, 147, 147)
+                .addGap(202, 202, 202)
                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_empleadoLayout.createSequentialGroup()
                         .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1595,7 +1579,7 @@ public class Ventana1 extends javax.swing.JFrame {
                     .addComponent(relacion_cliente_empleado_del_button, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         paginas.addTab("Empleado", panel_empleado);
@@ -1898,8 +1882,7 @@ public class Ventana1 extends javax.swing.JFrame {
     }
 
     private void button_add_empleadoActionPerformed(java.awt.event.ActionEvent evt){
-        if (!introducir_dni_empleado.getText().isEmpty() && 
-        !introducir_nombre_empleado.getText().isEmpty() && 
+        if (!introducir_nombre_empleado.getText().isEmpty() && 
         !introducir_cargo_empleado.getText().isEmpty()) {
 
             Empleado e = new Empleado(introducir_nombre_empleado.getText(), introducir_cargo_empleado.getText());
@@ -2901,13 +2884,11 @@ public class Ventana1 extends javax.swing.JFrame {
     private javax.swing.JLabel cargo_label_empleado;
     private javax.swing.JLabel direccion_label_cliente;
     private javax.swing.JLabel dni_label_cliente;
-    private javax.swing.JLabel dni_label_empleado;
     private javax.swing.JLabel estado_label_pedido;
     private javax.swing.JLabel fecha_label_pedido;
     private javax.swing.JTextField introducir_cargo_empleado;
     public javax.swing.JTextField introducir_direccion_cliente;
     public javax.swing.JTextField introducir_dni_cliente;
-    private javax.swing.JTextField introducir_dni_empleado;
     public javax.swing.JTextField introducir_estado_pedido;
     public javax.swing.JTextField introducir_fecha_pedido;
     private javax.swing.JTextField introducir_nom_empresa_proveedor;
