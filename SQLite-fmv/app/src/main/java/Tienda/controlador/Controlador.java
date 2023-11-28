@@ -51,7 +51,7 @@ public class Controlador {
         
         producto = new Producto();
         
-        productos =  new ArrayList<>();
+        productos =  obtenerProductosBD();
         
         proveedor = new Proveedor();
         
@@ -282,8 +282,9 @@ public class Controlador {
     
     public Producto getProductoPorId(String id){
         Producto p = new Producto();
+        int idInt = Integer.valueOf(id);
         for(Producto producto : productos){
-            if(producto.getId().equals(id)){
+            if(producto.getId() == idInt){
                 p = producto;
             }
         }
@@ -293,7 +294,7 @@ public class Controlador {
     public boolean comprobarId(Producto p){
         
         for(Producto producto : productos){
-            if(producto.getId().equals(p.getId())){
+            if(producto.getId() == p.getId()){
                 return false;
             }
         }
@@ -633,6 +634,36 @@ public class Controlador {
             }
         }
     }
+    
+    public ArrayList<Producto> obtenerProductosBD() {
+        ArrayList<Producto> productos = new ArrayList<>();
+
+        try {
+            //Creo una consulta
+            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT * FROM Productos");
+
+            //Ejecuto la consulta
+            ResultSet resultados = statement.executeQuery();
+
+            //Introduzco los datos de la bd y voy creando los clientes
+            while (resultados.next()) {
+                int id = resultados.getInt("id_producto");
+                String nombre = resultados.getString("nombre_producto");
+                boolean stock = resultados.getBoolean("stock");
+                int precio = resultados.getInt("precio");
+
+                Producto producto = new Producto(nombre, stock, precio);
+                productos.add(producto);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productos;
+    }
+    
+    
 }
 
 

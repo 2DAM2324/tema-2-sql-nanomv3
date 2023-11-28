@@ -24,7 +24,7 @@ import org.w3c.dom.Node;
  * @author nanom
  */
 public class Producto {
-    private String id;
+    private int id;
     private String nombre;
     private boolean stock;
     private double precio;
@@ -53,11 +53,10 @@ public class Producto {
     }
 
     // Constructor por parametros
-    public Producto(String id, String nombre, boolean stock, double precio) {
+    public Producto(String nombre, boolean stock, double precio) {
 
         pedidos_producto = new ArrayList<>();
         proveedor_producto = new ArrayList<>();
-        this.setId(id);
         this.setNombre(nombre);
         this.setStock(stock);
         this.setPrecio(precio);
@@ -69,7 +68,6 @@ public class Producto {
 
         pedidos_producto = new ArrayList<>();
         proveedor_producto = new ArrayList<>();
-        this.setId("");
         this.setNombre("");
         this.setStock(false);
         this.setPrecio(0.0);
@@ -77,11 +75,11 @@ public class Producto {
     }
 
     // Getters y Setters
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

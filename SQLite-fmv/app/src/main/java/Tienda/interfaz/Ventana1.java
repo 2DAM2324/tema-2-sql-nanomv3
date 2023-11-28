@@ -1989,7 +1989,7 @@ public class Ventana1 extends javax.swing.JFrame {
 
                     double precio = Double.parseDouble(introducir_precio_producto.getText());
 
-                    Producto p = new Producto(introducir_id_producto.getText(), introducir_nombre_producto.getText(), hay_stock, precio);
+                    Producto p = new Producto(introducir_nombre_producto.getText(), hay_stock, precio);
 
                     if (controlador.comprobarId(p)) {
                         controlador.agregarProducto(p);
@@ -2036,7 +2036,7 @@ public class Ventana1 extends javax.swing.JFrame {
                         
                         double precio = Double.parseDouble(introducir_precio_producto.getText());
 
-                        Producto p = new Producto(introducir_id_producto.getText(), introducir_nombre_producto.getText(), hay_stock, precio);
+                        Producto p = new Producto(introducir_nombre_producto.getText(), hay_stock, precio);
 
                         controlador.modificarProducto(productoSeleccionado, p);
                         ArrayList<Producto> productos = controlador.listaProductos();
@@ -2325,7 +2325,7 @@ public class Ventana1 extends javax.swing.JFrame {
                 Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
                 Producto p = controlador.getProductoPorId(relacion_introducir_producto_pedido.getText());
                     
-                    if(!p.getId().isEmpty()){
+                    if(p.getId()!=0){
                         controlador.relacionProductoPedido(p, pedidoSeleccionado);
                         ArrayList<Producto> productos = pedidoSeleccionado.listaProductosPedido();
                         mostrarRelacionProductoPedido(productos);
@@ -2375,7 +2375,7 @@ public class Ventana1 extends javax.swing.JFrame {
                 Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedorSeleccionado);
                 Producto p = controlador.getProductoPorId(relacion_introducir_producto_proveedor.getText());
                 if(!p.isTieneProveedor()){    
-                    if(!p.getId().isEmpty()){
+                    if(p.getId()!=0){
                         controlador.relacionProveedorProducto(p, proveedorSeleccionado);
                         ArrayList<Producto> productos = proveedorSeleccionado.getProductos_proveedor();
                         mostrarRelacionProductoProveedor(productos);
