@@ -1863,9 +1863,9 @@ public class Ventana1 extends javax.swing.JFrame {
             
             if (fila_seleccionada >= 0) {
                 System.out.println("Entro en if");
-                String idEmpleadoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
+                Integer idEmpleadoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
                 System.out.println("id: "+ idEmpleadoSeleccionado);
-                Empleado empleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado);
+                Empleado empleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado.toString());
                 Empleado e = new Empleado(introducir_nombre_empleado.getText(), introducir_cargo_empleado.getText());
                 
                 controlador.modificarEmpleado(empleadoSeleccionado, e);

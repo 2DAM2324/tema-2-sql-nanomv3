@@ -362,7 +362,7 @@ public class Controlador {
             empleados.set(posicionEmpleado, empleado_modificado);
         }
         
-        //empleado_modificado.escribirXML(empleados);
+        modificarDatosEmpleadosEnBD(empleado_modificado, empleado_borrar);
     }
     
     public void borrarEmpleado(Empleado e){
@@ -973,6 +973,33 @@ public class Controlador {
                     
                 }catch(SQLException sqle){
                     //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public void modificarDatosEmpleadosEnBD(Empleado e, Empleado antiguo_e) {
+        String sentenciaSql = "UPDATE Empleados SET nombre_empleado = ?, cargo = ? WHERE id_empleado = ?";
+        PreparedStatement sentencia = null;
+
+        try {
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, e.getNombre());
+            sentencia.setString(2, e.getCargo());
+            sentencia.setInt(3, antiguo_e.getId());
+            sentencia.executeUpdate();
+
+            e.setId(antiguo_e.getId());
+
+            System.out.println("Empleado modificado correctamente: " + e.toString());
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        } finally {
+            if (sentencia != null) {
+                try {
+                    sentencia.close();
+                } catch (SQLException sqle) {
                     sqle.printStackTrace();
                 }
             }
