@@ -157,11 +157,9 @@ public class Ventana1 extends javax.swing.JFrame {
         panel_producto = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabla_datos_producto = new javax.swing.JTable();
-        id_label_producto = new javax.swing.JLabel();
         nombre_label_producto = new javax.swing.JLabel();
         precio_label_producto = new javax.swing.JLabel();
         introducir_precio_producto = new javax.swing.JTextField();
-        introducir_id_producto = new javax.swing.JTextField();
         introducir_nombre_producto = new javax.swing.JTextField();
         button_del_producto = new javax.swing.JButton();
         button_mod_producto = new javax.swing.JButton();
@@ -928,17 +926,9 @@ public class Ventana1 extends javax.swing.JFrame {
             tabla_datos_producto.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        id_label_producto.setText("ID:");
-
         nombre_label_producto.setText("Nombre:");
 
         precio_label_producto.setText("Precio:");
-
-        introducir_id_producto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                introducir_id_productoActionPerformed(evt);
-            }
-        });
 
         button_del_producto.setText("Borrar");
         button_del_producto.addActionListener(new java.awt.event.ActionListener() {
@@ -1089,45 +1079,45 @@ public class Ventana1 extends javax.swing.JFrame {
                         .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_productoLayout.createSequentialGroup()
                                 .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(id_label_producto)
-                                    .addComponent(nombre_label_producto)
-                                    .addComponent(precio_label_producto)
-                                    .addComponent(stock_label_producto))
-                                .addGap(34, 34, 34)
-                                .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(introducir_id_producto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                                    .addComponent(introducir_nombre_producto, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(introducir_precio_producto, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(introducir_stock_producto, javax.swing.GroupLayout.Alignment.LEADING)))
-                            .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(panel_productoLayout.createSequentialGroup()
-                                    .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_productoLayout.createSequentialGroup()
-                                            .addComponent(label_relacion_pedido2)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(relacion_introducir_pedido_producto)
-                                            .addGap(38, 38, 38))
-                                        .addGroup(panel_productoLayout.createSequentialGroup()
-                                            .addComponent(jLabel9)
-                                            .addGap(334, 334, 334)))
-                                    .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(relacion_pedido_producto_del_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(relacion_pedido_producto_add_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(panel_productoLayout.createSequentialGroup()
-                                    .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(panel_productoLayout.createSequentialGroup()
-                                            .addComponent(jLabel10)
-                                            .addGap(236, 236, 236))
-                                        .addGroup(panel_productoLayout.createSequentialGroup()
-                                            .addComponent(jLabel11)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(relacion_introducir_proveedor_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(20, 20, 20)))
-                                    .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(relacion_proveedor_producto_add_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(relacion_proveedor_producto_del_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_productoLayout.createSequentialGroup()
+                                        .addComponent(label_relacion_pedido2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(relacion_introducir_pedido_producto)
+                                        .addGap(38, 38, 38))
+                                    .addGroup(panel_productoLayout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addGap(334, 334, 334)))
+                                .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(relacion_pedido_producto_del_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(relacion_pedido_producto_add_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panel_productoLayout.createSequentialGroup()
+                                .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panel_productoLayout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addGap(236, 236, 236))
+                                    .addGroup(panel_productoLayout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(relacion_introducir_proveedor_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(20, 20, 20)))
+                                .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(relacion_proveedor_producto_add_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(relacion_proveedor_producto_del_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(panel_productoLayout.createSequentialGroup()
+                                .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panel_productoLayout.createSequentialGroup()
+                                        .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(nombre_label_producto)
+                                            .addComponent(precio_label_producto)
+                                            .addComponent(stock_label_producto))
+                                        .addGap(34, 34, 34)
+                                        .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(introducir_nombre_producto, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                                            .addComponent(introducir_precio_producto)
+                                            .addComponent(introducir_stock_producto))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(18, 18, 18))
         );
         panel_productoLayout.setVerticalGroup(
@@ -1144,11 +1134,7 @@ public class Ventana1 extends javax.swing.JFrame {
                     .addGroup(panel_productoLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42)
-                .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id_label_producto)
-                    .addComponent(introducir_id_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(39, 39, 39)
                 .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombre_label_producto)
                     .addComponent(introducir_nombre_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1160,7 +1146,7 @@ public class Ventana1 extends javax.swing.JFrame {
                 .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(stock_label_producto)
                     .addComponent(introducir_stock_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
+                .addGap(97, 97, 97)
                 .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_productoLayout.createSequentialGroup()
                         .addGroup(panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1186,7 +1172,7 @@ public class Ventana1 extends javax.swing.JFrame {
                     .addComponent(relacion_proveedor_producto_del_button, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         paginas.addTab("Producto", panel_producto);
@@ -1969,8 +1955,7 @@ public class Ventana1 extends javax.swing.JFrame {
     }
     
     private void button_add_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_productoActionPerformed
-        if (!introducir_id_producto.getText().isEmpty() && 
-        !introducir_nombre_producto.getText().isEmpty() && 
+        if (!introducir_nombre_producto.getText().isEmpty() && 
         !introducir_precio_producto.getText().isEmpty() && 
         !introducir_stock_producto.getText().isEmpty()) {
         
@@ -2064,8 +2049,8 @@ public class Ventana1 extends javax.swing.JFrame {
         if (fila_seleccionada >= 0) {
             System.out.println("entro en el if");
             // Obt�n el cliente seleccionado
-            String idProductoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado);
+            Integer idProductoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+            Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado.toString());
             System.out.println("guardo el cliente selecionao");
 
             // Borra el cliente seleccionado del modelo de tabla
@@ -2080,16 +2065,12 @@ public class Ventana1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_button_del_productoActionPerformed
 
-    private void introducir_id_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_introducir_id_productoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_introducir_id_productoActionPerformed
-
     private void tabla_datos_productoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_datos_productoMouseClicked
         DefaultTableModel model = (DefaultTableModel) tabla_datos_producto.getModel();
         int fila_seleccionada = tabla_datos_producto.getSelectedRow();
         if(fila_seleccionada >= 0){
-            String idProductoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado);
+            Integer idProductoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+            Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado.toString());
             System.out.println("tieen provedor: " + productoSeleccionado.isTieneProveedor());
             ArrayList<Pedido> pedidos = productoSeleccionado.listaPedidosProductos();
             ArrayList<Proveedor> proveedor = productoSeleccionado.getProveedor();
@@ -2938,7 +2919,6 @@ public class Ventana1 extends javax.swing.JFrame {
     private javax.swing.JLabel dni_label_empleado;
     private javax.swing.JLabel estado_label_pedido;
     private javax.swing.JLabel fecha_label_pedido;
-    private javax.swing.JLabel id_label_producto;
     private javax.swing.JLabel id_label_proveedor;
     private javax.swing.JTextField introducir_cargo_empleado;
     public javax.swing.JTextField introducir_direccion_cliente;
@@ -2946,7 +2926,6 @@ public class Ventana1 extends javax.swing.JFrame {
     private javax.swing.JTextField introducir_dni_empleado;
     public javax.swing.JTextField introducir_estado_pedido;
     public javax.swing.JTextField introducir_fecha_pedido;
-    private javax.swing.JTextField introducir_id_producto;
     private javax.swing.JTextField introducir_id_proveedor;
     private javax.swing.JTextField introducir_nom_empresa_proveedor;
     public javax.swing.JTextField introducir_nombre_cliente;

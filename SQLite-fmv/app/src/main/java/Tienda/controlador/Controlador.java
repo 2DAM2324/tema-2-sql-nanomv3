@@ -256,7 +256,7 @@ public class Controlador {
     public void agregarProducto(Producto p){
         productos.add(p);
         
-        //p.escribirXML(productos);
+        introducirDatosDeProductosEnBD(p);
     }
     
     public void modificarProducto(Producto producto_borrar, Producto producto_modificado){
@@ -650,9 +650,9 @@ public class Controlador {
                 int id = resultados.getInt("id_producto");
                 String nombre = resultados.getString("nombre_producto");
                 boolean stock = resultados.getBoolean("stock");
-                int precio = resultados.getInt("precio");
+                double precio = resultados.getDouble("precio");
 
-                Producto producto = new Producto(nombre, stock, precio);
+                Producto producto = new Producto(id, nombre, stock, precio);
                 productos.add(producto);
             }
 
@@ -663,7 +663,44 @@ public class Controlador {
         return productos;
     }
     
-    
+    public void introducirDatosDeProductosEnBD(Producto p){
+        
+        System.out.println("Entro en introducir los datos de productos");
+        
+        String sentenciaSql = "INSERT INTO Productos (nombre_producto, stock, precio) VALUES (?, ?, ?)";
+        
+        PreparedStatement sentencia = null;
+        
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, p.getNombre());
+            sentencia.setBoolean(2, p.getStock());
+            sentencia.setDouble(3, p.getPrecio());
+            sentencia.executeUpdate();
+            
+            ResultSet generatedKeys = sentencia.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int idGenerado = generatedKeys.getInt(1);
+                System.out.println("Id generada: " + idGenerado);
+                p.setId(idGenerado);
+            } else {
+                System.out.println("No se pudo obtener la clave generada para el pedido.");
+            }
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia != null){
+                try{
+                    sentencia.close();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
 }
 
 

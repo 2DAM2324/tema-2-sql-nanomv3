@@ -53,6 +53,17 @@ public class Producto {
     }
 
     // Constructor por parametros
+    public Producto(int id, String nombre, boolean stock, double precio) {
+
+        pedidos_producto = new ArrayList<>();
+        proveedor_producto = new ArrayList<>();
+        this.setId(id);
+        this.setNombre(nombre);
+        this.setStock(stock);
+        this.setPrecio(precio);
+        setTieneProveedor(false);
+    }
+    
     public Producto(String nombre, boolean stock, double precio) {
 
         pedidos_producto = new ArrayList<>();
@@ -62,6 +73,7 @@ public class Producto {
         this.setPrecio(precio);
         setTieneProveedor(false);
     }
+
 
     // Constructor
     public Producto() {
