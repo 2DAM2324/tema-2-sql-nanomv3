@@ -2008,9 +2008,9 @@ public class Ventana1 extends javax.swing.JFrame {
                     if (stock.equals("SI") || stock.equals("NO")) {
 
                         System.out.println("Entro en if");
-                        String idProductoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
+                        Integer idProductoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
                         System.out.println("id: "+ idProductoSeleccionado);
-                        Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado);
+                        Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado.toString());
 
                         if(stock.equals("SI")){
                             hay_stock = true;

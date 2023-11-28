@@ -266,7 +266,7 @@ public class Controlador {
             productos.set(posicionProducto, producto_modificado);
         }
         
-        //producto_modificado.escribirXML(productos);
+        modificarDatosProductosEnBD(producto_modificado, producto_borrar);
     }
     
     public void borrarProducto(Producto p){
@@ -725,6 +725,34 @@ public class Controlador {
                     
                 }catch(SQLException sqle){
                     //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public void modificarDatosProductosEnBD(Producto p, Producto antiguo_p) {
+        String sentenciaSql = "UPDATE Productos SET nombre_producto = ?, stock = ?, precio = ? WHERE id_producto = ?";
+        PreparedStatement sentencia = null;
+
+        try {
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, p.getNombre());
+            sentencia.setBoolean(2, p.getStock());
+            sentencia.setDouble(3, p.getPrecio());
+            sentencia.setInt(4, antiguo_p.getId());
+            sentencia.executeUpdate();
+
+            p.setId(antiguo_p.getId());
+
+            System.out.println("Pedido modificado correctamente: " + p.toString());
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        } finally {
+            if (sentencia != null) {
+                try {
+                    sentencia.close();
+                } catch (SQLException sqle) {
                     sqle.printStackTrace();
                 }
             }
