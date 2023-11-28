@@ -1822,8 +1822,8 @@ public class Ventana1 extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabla_datos_empleado.getModel();
         int fila_seleccionada = tabla_datos_empleado.getSelectedRow();
         if(fila_seleccionada >= 0){
-            String idEmpleadoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Empleado empleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado);
+            Integer idEmpleadoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+            Empleado empleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado.toString());
             ArrayList<Cliente> cliente = empleadoSeleccionado.listaClientesTienda();
             
             mostrarRelacionClienteEmpleado(cliente);
@@ -1839,8 +1839,8 @@ public class Ventana1 extends javax.swing.JFrame {
         if (fila_seleccionada >= 0) {
             System.out.println("entro en el if");
             // Obt�n el cliente seleccionado
-            String idEmpleadoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Empleado empleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado);
+            Integer idEmpleadoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+            Empleado empleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado.toString());
             System.out.println("guardo el cliente selecionao");
 
             // Borra el cliente seleccionado del modelo de tabla

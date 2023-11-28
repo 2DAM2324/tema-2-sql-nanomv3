@@ -369,7 +369,7 @@ public class Controlador {
         if(empleados != null)
             empleados.remove(e);
         
-        //e.escribirXML(empleados);
+        borrarDatosEmpleadosEnBD(e);
     }
     
     public ArrayList<Empleado> listaEmpleados(){
@@ -943,6 +943,34 @@ public class Controlador {
             if(sentencia != null){
                 try{
                     sentencia.close();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public void borrarDatosEmpleadosEnBD(Empleado e){
+        
+        System.out.println("borrar empleado BD");
+        String sentenciaSql = "DELETE FROM Empleados WHERE id_empleado = ?";
+        PreparedStatement sentencia = null;
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setInt(1, e.getId());
+            sentencia.executeUpdate();
+            
+            System.out.println("id= " + e.getId());
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia!= null){
+                try{
+                    sentencia.close();
+                    
                 }catch(SQLException sqle){
                     //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
                     sqle.printStackTrace();
