@@ -273,7 +273,7 @@ public class Controlador {
         if(productos != null)
             productos.remove(p);
         
-        //p.escribirXML(productos);
+        borrarDatosProductosEnBD(p);
     }
     
     public ArrayList<Producto> listaProductos(){
@@ -694,6 +694,35 @@ public class Controlador {
             if(sentencia != null){
                 try{
                     sentencia.close();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public void borrarDatosProductosEnBD(Producto p){
+        
+        System.out.println("borrar producto BD");
+        String sentenciaSql = "DELETE FROM Productos WHERE id_producto = ?";
+        PreparedStatement sentencia = null;
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setInt(1, p.getId());
+            //System.out.println(conexion.);
+            sentencia.executeUpdate();
+            
+            System.out.println("id= " + p.getId());
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia!= null){
+                try{
+                    sentencia.close();
+                    
                 }catch(SQLException sqle){
                     //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
                     sqle.printStackTrace();
