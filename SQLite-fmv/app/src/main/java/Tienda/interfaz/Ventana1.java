@@ -183,11 +183,9 @@ public class Ventana1 extends javax.swing.JFrame {
         panel_proveedor = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabla_datos_proveedor = new javax.swing.JTable();
-        id_label_proveedor = new javax.swing.JLabel();
         nom_empresa_label_proveedor = new javax.swing.JLabel();
         precio_label_proveedor = new javax.swing.JLabel();
         introducir_stock_proveedor = new javax.swing.JTextField();
-        introducir_id_proveedor = new javax.swing.JTextField();
         introducir_nom_empresa_proveedor = new javax.swing.JTextField();
         button_del_proveedor = new javax.swing.JButton();
         button_mod_proveedor = new javax.swing.JButton();
@@ -1213,17 +1211,9 @@ public class Ventana1 extends javax.swing.JFrame {
             tabla_datos_proveedor.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        id_label_proveedor.setText("ID:");
-
         nom_empresa_label_proveedor.setText("Nombre empresa:");
 
         precio_label_proveedor.setText("Precio:");
-
-        introducir_id_proveedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                introducir_id_proveedorActionPerformed(evt);
-            }
-        });
 
         button_del_proveedor.setText("Borrar");
         button_del_proveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -1319,29 +1309,29 @@ public class Ventana1 extends javax.swing.JFrame {
                     .addGroup(panel_proveedorLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_proveedorLayout.createSequentialGroup()
-                                .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(id_label_proveedor)
-                                    .addComponent(nom_empresa_label_proveedor)
-                                    .addComponent(precio_label_proveedor)
-                                    .addComponent(stock_label_proveedor))
-                                .addGap(24, 24, 24)
-                                .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(introducir_id_proveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                                    .addComponent(introducir_nom_empresa_proveedor)
-                                    .addComponent(introducir_stock_proveedor)
-                                    .addComponent(introducir_precio_proveedor)))
                             .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panel_proveedorLayout.createSequentialGroup()
                                 .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_proveedorLayout.createSequentialGroup()
-                                        .addComponent(label_relacion_pedido3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(relacion_introducir_producto_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(38, 38, 38))
                                     .addGroup(panel_proveedorLayout.createSequentialGroup()
                                         .addComponent(jLabel12)
-                                        .addGap(334, 334, 334)))
+                                        .addGap(334, 334, 334))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_proveedorLayout.createSequentialGroup()
+                                        .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(panel_proveedorLayout.createSequentialGroup()
+                                                .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(nom_empresa_label_proveedor)
+                                                    .addComponent(precio_label_proveedor)
+                                                    .addComponent(stock_label_proveedor))
+                                                .addGap(24, 24, 24)
+                                                .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(introducir_nom_empresa_proveedor)
+                                                    .addComponent(introducir_stock_proveedor)
+                                                    .addComponent(introducir_precio_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(panel_proveedorLayout.createSequentialGroup()
+                                                .addComponent(label_relacion_pedido3)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(relacion_introducir_producto_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(38, 38, 38)))
                                 .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(relacion_producto_proveedor_add_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(relacion_producto_proveedor_del_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))))
@@ -1361,11 +1351,7 @@ public class Ventana1 extends javax.swing.JFrame {
                     .addGroup(panel_proveedorLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42)
-                .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id_label_proveedor)
-                    .addComponent(introducir_id_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(29, 29, 29)
                 .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nom_empresa_label_proveedor)
                     .addComponent(introducir_nom_empresa_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1377,7 +1363,7 @@ public class Ventana1 extends javax.swing.JFrame {
                 .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(stock_label_proveedor)
                     .addComponent(introducir_stock_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(125, 125, 125)
+                .addGap(171, 171, 171)
                 .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_proveedorLayout.createSequentialGroup()
                         .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1389,7 +1375,7 @@ public class Ventana1 extends javax.swing.JFrame {
                     .addComponent(relacion_producto_proveedor_del_button))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         paginas.addTab("Proveedor", panel_proveedor);
@@ -1715,8 +1701,8 @@ public class Ventana1 extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabla_datos_proveedor.getModel();
         int fila_seleccionada = tabla_datos_proveedor.getSelectedRow();
         if(fila_seleccionada >= 0){
-            String idProveedorSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedorSeleccionado);
+            Integer idProveedorSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+            Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedorSeleccionado.toString());
             ArrayList<Producto> productos = proveedorSeleccionado.getProductos_proveedor();
             
             mostrarRelacionProductoProveedor(productos);
@@ -1744,8 +1730,8 @@ public class Ventana1 extends javax.swing.JFrame {
         if (fila_seleccionada >= 0) {
             System.out.println("entro en el if");
             // Obt�n el cliente seleccionado
-            String idProveedorSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedorSeleccionado);
+            Integer idProveedorSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+            Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedorSeleccionado.toString());
             System.out.println("guardo el cliente selecionao");
 
             // Borra el cliente seleccionado del modelo de tabla
@@ -1785,7 +1771,7 @@ public class Ventana1 extends javax.swing.JFrame {
                         
                         double precio = Double.parseDouble(introducir_precio_proveedor.getText());
 
-                        Proveedor p = new Proveedor(introducir_id_proveedor.getText(), introducir_nom_empresa_proveedor.getText(), precio, hay_stock);
+                        Proveedor p = new Proveedor(introducir_nom_empresa_proveedor.getText(), precio, hay_stock);
 
                         controlador.modificarProveedor(proveedorSeleccionado, p);
                         ArrayList<Proveedor> proveedores = controlador.listaProveedores();
@@ -1806,8 +1792,7 @@ public class Ventana1 extends javax.swing.JFrame {
     }
 
     private void button_add_proveedorActionPerformed(java.awt.event.ActionEvent evt){
-        if (!introducir_id_proveedor.getText().isEmpty() && 
-        !introducir_nom_empresa_proveedor.getText().isEmpty() && 
+        if (!introducir_nom_empresa_proveedor.getText().isEmpty() && 
         !introducir_precio_proveedor.getText().isEmpty() && 
         !introducir_stock_proveedor.getText().isEmpty()) {
         
@@ -1826,7 +1811,7 @@ public class Ventana1 extends javax.swing.JFrame {
 
                     double precio = Double.parseDouble(introducir_precio_proveedor.getText());
 
-                    Proveedor p = new Proveedor(introducir_id_proveedor.getText(), introducir_nom_empresa_proveedor.getText(), precio, hay_stock);
+                    Proveedor p = new Proveedor(introducir_nom_empresa_proveedor.getText(), precio, hay_stock);
 
                     if (controlador.comprobarId(p)) {
                         controlador.agregarProveedor(p);
@@ -2436,7 +2421,7 @@ public class Ventana1 extends javax.swing.JFrame {
                 Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado);
                 Proveedor p = controlador.getProveedorPorId(relacion_introducir_proveedor_producto.getText());
                 if(!productoSeleccionado.isTieneProveedor()){
-                    if(!p.getId().isEmpty()){
+                    if(p.getId() !=0){
                         System.out.println("size: " + productoSeleccionado.getProveedor().size());
                         controlador.relacionProveedorProducto(productoSeleccionado, p);
                         ArrayList<Proveedor> proveedor = productoSeleccionado.getProveedor();
@@ -2919,14 +2904,12 @@ public class Ventana1 extends javax.swing.JFrame {
     private javax.swing.JLabel dni_label_empleado;
     private javax.swing.JLabel estado_label_pedido;
     private javax.swing.JLabel fecha_label_pedido;
-    private javax.swing.JLabel id_label_proveedor;
     private javax.swing.JTextField introducir_cargo_empleado;
     public javax.swing.JTextField introducir_direccion_cliente;
     public javax.swing.JTextField introducir_dni_cliente;
     private javax.swing.JTextField introducir_dni_empleado;
     public javax.swing.JTextField introducir_estado_pedido;
     public javax.swing.JTextField introducir_fecha_pedido;
-    private javax.swing.JTextField introducir_id_proveedor;
     private javax.swing.JTextField introducir_nom_empresa_proveedor;
     public javax.swing.JTextField introducir_nombre_cliente;
     private javax.swing.JTextField introducir_nombre_empleado;

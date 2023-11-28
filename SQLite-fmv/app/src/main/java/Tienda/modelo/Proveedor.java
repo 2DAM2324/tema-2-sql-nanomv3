@@ -24,7 +24,7 @@ import org.w3c.dom.NodeList;
  * @author nanom
  */
 public class Proveedor {
-    private String id;
+    private int id;
     private String nombre_empresa;
     private double precio;
     private boolean stock;
@@ -33,8 +33,16 @@ public class Proveedor {
     
 
     // Constructor por parametros
-    public Proveedor(String id, String nombre, double precio, boolean stock) {
+    public Proveedor(int id, String nombre, double precio, boolean stock) {
         setId(id);
+        setNombre(nombre);
+        setPrecio(precio);
+        setStock(stock);
+        
+        productos_proveedor = new ArrayList<>();
+    }
+    
+    public Proveedor(String nombre, double precio, boolean stock) {
         setNombre(nombre);
         setPrecio(precio);
         setStock(stock);
@@ -44,7 +52,6 @@ public class Proveedor {
 
     // Constructor
     public Proveedor() {
-        setId("");
         setNombre("");
         setPrecio(0.0);
         setStock(false);
@@ -53,11 +60,11 @@ public class Proveedor {
     }
 
     // Getters y Setters
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
