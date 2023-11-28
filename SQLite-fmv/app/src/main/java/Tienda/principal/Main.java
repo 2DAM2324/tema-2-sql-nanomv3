@@ -5,6 +5,7 @@
 package Tienda.principal;
 
 import Tienda.interfaz.Ventana1;
+import Tienda.modelo.ConexionDB;
 import Tienda.modelo.Empleado;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,7 +18,7 @@ import org.xml.sax.SAXException;
  * @author nanom
  */
 public class Main {
-    public static void main (String[] args) throws IOException, FileNotFoundException, ClassNotFoundException, NotSerializableException, SAXException{   
+    public static void main (String[] args) throws IOException, FileNotFoundException, ClassNotFoundException, NotSerializableException, SAXException{
         Ventana1 interfaz = new Ventana1();
         interfaz.setVisible(true);
     }

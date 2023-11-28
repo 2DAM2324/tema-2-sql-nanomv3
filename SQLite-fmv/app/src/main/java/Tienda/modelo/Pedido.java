@@ -8,6 +8,7 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
@@ -134,94 +135,5 @@ public class Pedido {
         setAsignado(false);
     }
     
-    public ArrayList<Pedido> obtenerPedidosBD() {
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-
-        try {
-            //Creo una consulta
-            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT * FROM Pedidos");
-
-            //Ejecuto la consulta
-            ResultSet resultados = statement.executeQuery();
-
-            //Introduzco los datos de la bd y voy creando los clientes
-            while (resultados.next()) {
-                int id = resultados.getInt("id_pedido");
-                String fecha = resultados.getString("fecha");
-                String estado = resultados.getString("estado");
-
-                Pedido pedido = new Pedido(id, fecha, estado);
-                pedidos.add(pedido);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            conexion.cerrarConexion();
-        }
-
-        return pedidos;
-    }
     
-    public void introducirDatosDePedidosEnBD(Pedido p){
-        
-        System.out.println("Entro en introducir los datos de pedidos");
-        
-        String sentenciaSql = "INSERT INTO Pedidos (fecha, estado) VALUES (?, ?)";
-        
-        PreparedStatement sentencia = null;
-        
-        
-        try{
-            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
-            sentencia.setString(1, p.getFecha());
-            sentencia.setString(2, p.getEstado());
-            sentencia.executeUpdate();
-            
-            ResultSet generatedKeys = sentencia.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                int idGenerado = generatedKeys.getInt(1);
-                p.setId(idGenerado);
-            } else {
-                System.out.println("No se pudo obtener la clave generada para el pedido.");
-            }
-        }catch(SQLException sqle){
-            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-            sqle.printStackTrace();
-        }finally{
-            if(sentencia != null){
-                try{
-                    sentencia.close();
-                    conexion.cerrarConexion();
-                }catch(SQLException sqle){
-                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-                    sqle.printStackTrace();
-                }
-            }
-        }
-    }
-    
-    public void borrarDatosPedidoEnBD(Pedido p){
-        String sentenciaSql = "DELETE FROM Pedidos WHERE id_pedido = ?";
-        PreparedStatement sentencia = null;
-        
-        try{
-            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
-            sentencia.setInt(1, p.getId());
-            sentencia.executeUpdate();
-        }catch(SQLException sqle){
-            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-            sqle.printStackTrace();
-        }finally{
-            if(sentencia!= null){
-                try{
-                    sentencia.close();
-                    conexion.cerrarConexion();
-                }catch(SQLException sqle){
-                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-                    sqle.printStackTrace();
-                }
-            }
-        }
-    }
 }

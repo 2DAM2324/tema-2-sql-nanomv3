@@ -50,6 +50,10 @@ import Tienda.modelo.Pedido;
 import Tienda.modelo.Producto;
 import Tienda.modelo.Proveedor;
 import Tienda.controlador.Controlador;
+import Tienda.modelo.ConexionDB;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JTable;
@@ -65,6 +69,7 @@ public class Ventana1 extends javax.swing.JFrame {
      */
     public Ventana1() throws IOException, FileNotFoundException, ClassNotFoundException, NotSerializableException, SAXException {
         initComponents();
+        conexion = new ConexionDB();
         mostrarDatosCliente(controlador.listaClientes());
         mostrarDatosPedido(controlador.listaPedidos());
         mostrarDatosProducto(controlador.listaProductos());
@@ -2571,7 +2576,8 @@ public class Ventana1 extends javax.swing.JFrame {
     }//GEN-LAST:event_relacion_cliente_empleado_del_buttonActionPerformed
 
     public void formWindowClosing(java.awt.event.WindowEvent evt){
-        
+        controlador.cerrarConexion();
+        conexion.cerrarConexion();
     }
     
     private void button_add_clienteActionPerformed(java.awt.event.ActionEvent evt){
@@ -2693,10 +2699,10 @@ public class Ventana1 extends javax.swing.JFrame {
             
             if (fila_seleccionada >= 0) {
                 System.out.println("Entro en if");
-                String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
+                Integer idPedidoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
                 System.out.println("id: "+ idPedidoSeleccionado);
-                Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
-                Pedido p = new Pedido(introducir_estado_pedido.getText(), introducir_fecha_pedido.getText());
+                Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado.toString());
+                Pedido p = new Pedido(introducir_fecha_pedido.getText(), introducir_estado_pedido.getText());
                 
                 controlador.modificarPedido(pedidoSeleccionado, p);
                 ArrayList<Pedido> pedidos = controlador.listaPedidos();
@@ -2903,6 +2909,12 @@ public class Ventana1 extends javax.swing.JFrame {
     }
     
     
+    
+    
+    
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_add_cliente;
@@ -3045,6 +3057,7 @@ public class Ventana1 extends javax.swing.JFrame {
     public javax.swing.JTable tabla_datos_proveedor;
     private javax.swing.JLabel telf_label_cliente;
     // End of variables declaration//GEN-END:variables
+    private ConexionDB conexion;
     
     public Controlador controlador = new Controlador();
     

@@ -8,6 +8,7 @@ import Tienda.interfaz.Ventana1;
 import java.util.ArrayList;
 
 import Tienda.modelo.Cliente;
+import Tienda.modelo.ConexionDB;
 import Tienda.modelo.Empleado;
 import Tienda.modelo.Pedido;
 import Tienda.modelo.Producto;
@@ -15,6 +16,9 @@ import Tienda.modelo.Proveedor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.NotSerializableException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import org.xml.sax.SAXException;
 
 /**
@@ -32,15 +36,18 @@ public class Controlador {
     private ArrayList<Producto> productos;
     private ArrayList<Proveedor> proveedores;
     private ArrayList<Empleado> empleados;
+    private ConexionDB conexion;
     
-    public Controlador(){       
+    public Controlador(){
+        conexion = new ConexionDB();
+        
         cliente = new Cliente();
         
-        clientes = cliente.obtenerClientesBD();
+        clientes = obtenerClientesBD();
         
         pedido = new Pedido();
         
-        pedidos =  pedido.obtenerPedidosBD();
+        pedidos =  obtenerPedidosBD();
         
         producto = new Producto();
         
@@ -55,10 +62,14 @@ public class Controlador {
         empleados =  new ArrayList<>();
     }
     
+    public void cerrarConexion(){
+        conexion.cerrarConexion();
+    }
+    
     public void agregarCliente(Cliente c){
         clientes.add(c);
         
-        c.introducirDatosDeClientesEnBD(c);
+        introducirDatosDeClientesEnBD(c);
         
     }
 
@@ -69,7 +80,7 @@ public class Controlador {
             clientes.set(posicionCliente, cliente_modificado);
         }
         
-        cliente_modificado.modificarDatosClienteEnBD(cliente_modificado, cliente_borrar);
+        modificarDatosClienteEnBD(cliente_modificado, cliente_borrar);
     }
 
     public void borrarCliente(Cliente c){
@@ -78,7 +89,7 @@ public class Controlador {
             clientes.remove(c);
         
         System.out.println("saize clientes: " + clientes.isEmpty());
-        c.borrarDatosClienteEnBD(c);
+        borrarDatosClienteEnBD(c);
         
     }
     public ArrayList<Cliente> listaClientes(){
@@ -192,7 +203,7 @@ public class Controlador {
     public void agregarPedido(Pedido p){
         pedidos.add(p);
                 
-        p.introducirDatosDePedidosEnBD(p);        
+        introducirDatosDePedidosEnBD(p);        
     }
     
     public void modificarPedido(Pedido pedido_borrar, Pedido pedido_modificado){
@@ -202,14 +213,14 @@ public class Controlador {
             pedidos.set(posicionPedido, pedido_modificado);
         }
         
-        //pedido_modificado.escribirXML(pedidos);
+        modificarDatosPedidosEnBD(pedido_modificado, pedido_borrar);
     }
     
     public void borrarPedido(Pedido p){
         if(pedidos != null)
             pedidos.remove(p);
         
-        p.borrarDatosPedidoEnBD(p);        
+        borrarDatosPedidoEnBD(p);        
     }
     
     public ArrayList<Pedido> listaPedidos(){
@@ -382,4 +393,250 @@ public class Controlador {
         }
         return true;
     }
+    
+    
+    ////////////////// BASE DE DATOS
+    
+    
+    
+    public ArrayList<Cliente> obtenerClientesBD() {
+        ArrayList<Cliente> clientes = new ArrayList<>();
+
+        try {
+            //Creo una consulta
+            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT * FROM Clientes");
+
+            //Ejecuto la consulta
+            ResultSet resultados = statement.executeQuery();
+
+            //Introduzco los datos de la bd y voy creando los clientes
+            while (resultados.next()) {
+                String dni = resultados.getString("dni");
+                String nombre = resultados.getString("nombre_cliente");
+                String direccion = resultados.getString("direccion");
+                String telefono = resultados.getString("telefono");
+
+                Cliente cliente = new Cliente(dni, nombre, direccion, telefono);
+                clientes.add(cliente);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return clientes;
+    }
+    
+    public void introducirDatosDeClientesEnBD(Cliente c){
+        
+        System.out.println("Entro en introducir los datos de cliente");
+        
+        String sentenciaSql = "INSERT INTO Clientes (dni, nombre_cliente, direccion, telefono) VALUES (?, ?, ?, ?)";
+        
+        PreparedStatement sentencia = null;
+        
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, c.getDni());
+            sentencia.setString(2, c.getNombre());
+            sentencia.setString(3, c.getDireccion());
+            sentencia.setString(4, c.getTelefono());
+            sentencia.executeUpdate();
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia != null){
+                try{
+                    sentencia.close();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+
+    } 
+    
+    public void borrarDatosClienteEnBD(Cliente c){
+        String sentenciaSql = "DELETE FROM Clientes WHERE dni = ?";
+        PreparedStatement sentencia = null;
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, c.getDni());
+            sentencia.executeUpdate();
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia!= null){
+                try{
+                    sentencia.close();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public void modificarDatosClienteEnBD(Cliente c, Cliente antiguo_c){
+        String sentenciaSql = "UPDATE Clientes SET dni = ?, nombre_cliente = ?, direccion = ?, telefono = ? "
+                + "WHERE dni = ?";
+        PreparedStatement sentencia = null;
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, c.getDni());
+            sentencia.setString(2, c.getNombre());
+            sentencia.setString(3, c.getDireccion());
+            sentencia.setString(4, c.getTelefono());
+            sentencia.setString(5, antiguo_c.getDni());
+            sentencia.executeUpdate();
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia!= null){
+                try{
+                    sentencia.close();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    public ArrayList<Pedido> obtenerPedidosBD() {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+
+        try {
+            //Creo una consulta
+            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT * FROM Pedidos");
+
+            //Ejecuto la consulta
+            ResultSet resultados = statement.executeQuery();
+
+            //Introduzco los datos de la bd y voy creando los clientes
+            while (resultados.next()) {
+                int id = resultados.getInt("id_pedido");
+                String fecha = resultados.getString("fecha");
+                String estado = resultados.getString("estado");
+
+                Pedido pedido = new Pedido(id, fecha, estado);
+                pedidos.add(pedido);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pedidos;
+    }
+    
+    public void introducirDatosDePedidosEnBD(Pedido p){
+        
+        System.out.println("Entro en introducir los datos de pedidos");
+        
+        String sentenciaSql = "INSERT INTO Pedidos (fecha, estado) VALUES (?, ?)";
+        
+        PreparedStatement sentencia = null;
+        
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, p.getFecha());
+            sentencia.setString(2, p.getEstado());
+            sentencia.executeUpdate();
+            
+            ResultSet generatedKeys = sentencia.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int idGenerado = generatedKeys.getInt(1);
+                p.setId(idGenerado);
+            } else {
+                System.out.println("No se pudo obtener la clave generada para el pedido.");
+            }
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia != null){
+                try{
+                    sentencia.close();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public void borrarDatosPedidoEnBD(Pedido p){
+        
+        System.out.println("borrar pedido BD");
+        String sentenciaSql = "DELETE FROM Pedidos WHERE id_pedido = ?";
+        PreparedStatement sentencia = null;
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setInt(1, p.getId());
+            //System.out.println(conexion.);
+            sentencia.executeUpdate();
+            
+            System.out.println("id= " + p.getId());
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia!= null){
+                try{
+                    sentencia.close();
+                    
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public void modificarDatosPedidosEnBD(Pedido p, Pedido antiguo_p) {
+        String sentenciaSql = "UPDATE Pedidos SET fecha = ?, estado = ? WHERE id_pedido = ?";
+        PreparedStatement sentencia = null;
+
+        try {
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, p.getFecha());
+            sentencia.setString(2, p.getEstado());
+            sentencia.setInt(3, antiguo_p.getId());
+            sentencia.executeUpdate();
+
+            p.setId(antiguo_p.getId());
+
+            System.out.println("Pedido modificado correctamente: " + p.toString());
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        } finally {
+            if (sentencia != null) {
+                try {
+                    sentencia.close();
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
 }
+
+
+
+
+
+
