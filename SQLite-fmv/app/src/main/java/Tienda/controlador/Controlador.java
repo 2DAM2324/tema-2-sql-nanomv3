@@ -314,7 +314,7 @@ public class Controlador {
             proveedores.set(posicionProveedor, proveedor_modificado);
         }
         
-       // proveedor_modificado.escribirXML(proveedores);
+        modificarDatosProveedorEnBD(proveedor_modificado, proveedor_borrar);
     }
     
     public void borrarProveedor(Proveedor p){
@@ -746,7 +746,7 @@ public class Controlador {
 
             p.setId(antiguo_p.getId());
 
-            System.out.println("Pedido modificado correctamente: " + p.toString());
+            System.out.println("Producto modificado correctamente: " + p.toString());
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         } finally {
@@ -856,5 +856,31 @@ public class Controlador {
         }
     }
     
-    
+    public void modificarDatosProveedorEnBD(Proveedor p, Proveedor antiguo_p) {
+        String sentenciaSql = "UPDATE Proveedores SET nombre_empresa = ?, stock = ?, precio = ? WHERE id_proveedor = ?";
+        PreparedStatement sentencia = null;
+
+        try {
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, p.getNombre());
+            sentencia.setBoolean(2, p.getStock());
+            sentencia.setDouble(3, p.getPrecio());
+            sentencia.setInt(4, antiguo_p.getId());
+            sentencia.executeUpdate();
+
+            p.setId(antiguo_p.getId());
+
+            System.out.println("Proveedor modificado correctamente: " + p.toString());
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        } finally {
+            if (sentencia != null) {
+                try {
+                    sentencia.close();
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
 }
