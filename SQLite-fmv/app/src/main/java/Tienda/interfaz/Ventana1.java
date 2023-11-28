@@ -1882,7 +1882,7 @@ public class Ventana1 extends javax.swing.JFrame {
                 String idEmpleadoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
                 System.out.println("id: "+ idEmpleadoSeleccionado);
                 Empleado empleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado);
-                Empleado e = new Empleado(introducir_dni_empleado.getText(), introducir_nombre_empleado.getText(), introducir_cargo_empleado.getText());
+                Empleado e = new Empleado(introducir_nombre_empleado.getText(), introducir_cargo_empleado.getText());
                 
                 controlador.modificarEmpleado(empleadoSeleccionado, e);
                 ArrayList<Empleado> empleados = controlador.listaEmpleados();
@@ -1902,7 +1902,7 @@ public class Ventana1 extends javax.swing.JFrame {
         !introducir_nombre_empleado.getText().isEmpty() && 
         !introducir_cargo_empleado.getText().isEmpty()) {
 
-            Empleado e = new Empleado(introducir_dni_empleado.getText(), introducir_nombre_empleado.getText(), introducir_cargo_empleado.getText());
+            Empleado e = new Empleado(introducir_nombre_empleado.getText(), introducir_cargo_empleado.getText());
 
             if (controlador.comprobarId(e)) {
                 controlador.agregarEmpleado(e);
@@ -2181,7 +2181,7 @@ public class Ventana1 extends javax.swing.JFrame {
                 Empleado e = controlador.getEmpleadoPorId(relacion_introducir_empleado_cliente.getText());
                 System.out.println("dni empleao: " + e.getId());
                 if(!clienteSeleccionado.isSupervisado()){  
-                    if(!e.getId().isEmpty()){
+                    if(e.getId() != 0){
                         controlador.relacionEmpleadoCliente(clienteSeleccionado, e);
                         ArrayList<Empleado> empleado = clienteSeleccionado.getEmpleadoTienda();
                         System.out.println("size213: " + empleado.size());

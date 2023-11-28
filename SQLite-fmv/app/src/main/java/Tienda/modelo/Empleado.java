@@ -25,7 +25,7 @@ import org.w3c.dom.NodeList;
  * @author nanom
  */
 public class Empleado {
-    private String id;
+    private int id;
     private String nombre;
     private String cargo;
     private ArrayList<Cliente> clientes_tienda;
@@ -43,8 +43,15 @@ public class Empleado {
     }
 
     // Constructor por parametros
-    public Empleado(String id, String nombre, String cargo) {
+    public Empleado(int id, String nombre, String cargo) {
         this.setId(id);
+        this.setNombre(nombre);
+        this.setCargo(cargo);
+
+        clientes_tienda = new ArrayList<>();
+    }
+    
+    public Empleado(String nombre, String cargo) {
         this.setNombre(nombre);
         this.setCargo(cargo);
 
@@ -53,7 +60,6 @@ public class Empleado {
 
     // Constructor
     public Empleado() {
-        this.setId("");
         this.setNombre("");
         this.setCargo("");
         
@@ -61,11 +67,11 @@ public class Empleado {
     }
 
     // Getters y Setters
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

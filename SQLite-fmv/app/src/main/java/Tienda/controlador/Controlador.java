@@ -59,7 +59,7 @@ public class Controlador {
         
         empleado = new Empleado();
         
-        empleados =  new ArrayList<>();
+        empleados =  obtenerEmpleadosBD();
     }
     
     public void cerrarConexion(){
@@ -378,8 +378,10 @@ public class Controlador {
     
     public Empleado getEmpleadoPorId(String id){
         Empleado e = new Empleado();
+        int idInt = Integer.valueOf(id);
+        
         for(Empleado empleado : empleados){
-            if(empleado.getId().equalsIgnoreCase(id)){
+            if(empleado.getId() == idInt){
                 e = empleado;
             }
         }
@@ -389,7 +391,7 @@ public class Controlador {
     public boolean comprobarId(Empleado e){
         
         for(Empleado empleado : empleados){
-            if(empleado.getId().equals(e.getId())){
+            if(empleado.getId() == e.getId()){
                 return false;
             }
         }
@@ -882,5 +884,32 @@ public class Controlador {
                 }
             }
         }
+    }
+    
+    public ArrayList<Empleado> obtenerEmpleadosBD() {
+        ArrayList<Empleado> empleados = new ArrayList<>();
+
+        try {
+            //Creo una consulta
+            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT * FROM Empleados");
+
+            //Ejecuto la consulta
+            ResultSet resultados = statement.executeQuery();
+
+            //Introduzco los datos de la bd y voy creando los clientes
+            while (resultados.next()) {
+                int id = resultados.getInt("id_empleado");
+                String nombre = resultados.getString("nombre_empleado");
+                String cargo = resultados.getString("cargo");
+
+                Empleado empleado = new Empleado(id, nombre, cargo);
+                empleados.add(empleado);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return empleados;
     }
 }
