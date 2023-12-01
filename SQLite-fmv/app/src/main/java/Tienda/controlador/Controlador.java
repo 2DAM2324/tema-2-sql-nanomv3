@@ -61,7 +61,7 @@ public class Controlador {
         
         empleados =  obtenerEmpleadosBD();
         
-        obtenerPedidosClienteBD(clientes);
+        obtenerClientePedidoBD(pedidos);
     }
     
     public void cerrarConexion(){
@@ -433,33 +433,7 @@ public class Controlador {
         return clientes;
     }
     
-    public void obtenerPedidosClienteBD(ArrayList<Cliente> clientes){
-        try {
-            //Creo una consulta
-            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT id_pedido FROM Clientes WHERE dni = ?");
-
-            //Introduzco los datos de la bd y voy creando los clientes
-            for(Cliente c : clientes){
-                statement.setString(1, c.getDni());   
-                ResultSet resultados = statement.executeQuery();
-                
-                while (resultados.next()) {
-                    int id_pedido = resultados.getInt("id_pedido");
-
-                    // Verificar si el id_pedido es 0
-                    if (id_pedido != 0) {
-                        String id_pedidoString = String.valueOf(id_pedido);
-
-                        Pedido p = getPedidoPorId(id_pedidoString);
-
-                        c.addPedidoCliente(p);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    
     
     public void introducirDatosDeClientesEnBD(Cliente c){
         
@@ -495,17 +469,14 @@ public class Controlador {
     
     public void introducirPedidoDeClienteEnBD(Cliente c){
                 
-        String sentenciaSql = "INSERT INTO Clientes (dni, nombre_cliente, direccion, telefono) VALUES (?, ?, ?, ?)";
+        /*String sentenciaSql = "UPDATE Clientes SET id_pedido = ? WHERE dni = ?";
         
         PreparedStatement sentencia = null;
         
-        
         try{
             sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
-            sentencia.setString(1, c.getDni());
-            sentencia.setString(2, c.getNombre());
-            sentencia.setString(3, c.getDireccion());
-            sentencia.setString(4, c.getTelefono());
+            //sentencia.setInt(1, c.());
+            sentencia.setString(2, c.getDni());
             sentencia.executeUpdate();
         }catch(SQLException sqle){
             //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -520,7 +491,7 @@ public class Controlador {
                 }
             }
         }
-
+        */
     } 
     
     public void borrarDatosClienteEnBD(Cliente c){
@@ -604,6 +575,30 @@ public class Controlador {
         }
 
         return pedidos;
+    }
+    
+    public void obtenerClientePedidoBD(ArrayList<Pedido> pedidos){
+        try {
+            //Creo una consulta
+            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT dni FROM Pedidos WHERE id_pedido = ?");
+
+            for(Pedido p : pedidos){
+                statement.setInt(1, p.getId());
+                ResultSet resultados = statement.executeQuery();
+                
+                while (resultados.next()) {
+                    String dni = resultados.getString("dni");
+
+                    // Verificar si el dni es null
+                    if (dni!=null) {
+                        Cliente c = getClientePorDni(dni);
+                        p.setCliente(c);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     public void introducirDatosDePedidosEnBD(Pedido p){
