@@ -60,6 +60,8 @@ public class Controlador {
         empleado = new Empleado();
         
         empleados =  obtenerEmpleadosBD();
+        
+        obtenerPedidosClienteBD(clientes);
     }
     
     public void cerrarConexion(){
@@ -431,6 +433,34 @@ public class Controlador {
         return clientes;
     }
     
+    public void obtenerPedidosClienteBD(ArrayList<Cliente> clientes){
+        try {
+            //Creo una consulta
+            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT id_pedido FROM Clientes WHERE dni = ?");
+
+            //Introduzco los datos de la bd y voy creando los clientes
+            for(Cliente c : clientes){
+                statement.setString(1, c.getDni());   
+                ResultSet resultados = statement.executeQuery();
+                
+                while (resultados.next()) {
+                    int id_pedido = resultados.getInt("id_pedido");
+
+                    // Verificar si el id_pedido es 0
+                    if (id_pedido != 0) {
+                        String id_pedidoString = String.valueOf(id_pedido);
+
+                        Pedido p = getPedidoPorId(id_pedidoString);
+
+                        c.addPedidoCliente(p);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void introducirDatosDeClientesEnBD(Cliente c){
         
         System.out.println("Entro en introducir los datos de cliente");
@@ -463,8 +493,39 @@ public class Controlador {
 
     } 
     
+    public void introducirPedidoDeClienteEnBD(Cliente c){
+                
+        String sentenciaSql = "INSERT INTO Clientes (dni, nombre_cliente, direccion, telefono) VALUES (?, ?, ?, ?)";
+        
+        PreparedStatement sentencia = null;
+        
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setString(1, c.getDni());
+            sentencia.setString(2, c.getNombre());
+            sentencia.setString(3, c.getDireccion());
+            sentencia.setString(4, c.getTelefono());
+            sentencia.executeUpdate();
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia != null){
+                try{
+                    sentencia.close();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+
+    } 
+    
     public void borrarDatosClienteEnBD(Cliente c){
-        String sentenciaSql = "DELETE FROM Clientes WHERE dni = ?";
+        String sentenciaSql = "UPDATE Clientes SET id_pedido = ? "
+                + "WHERE dni = ?";
         PreparedStatement sentencia = null;
         
         try{
