@@ -2320,8 +2320,8 @@ public class Ventana1 extends javax.swing.JFrame {
         
             if(!relacion_introducir_producto_proveedor.getText().isEmpty()){
                 
-                String idProveedorSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-                Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedorSeleccionado);
+                Integer idProveedorSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+                Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedorSeleccionado.toString());
                 Producto p = controlador.getProductoPorId(relacion_introducir_producto_proveedor.getText());
                 if(!p.isTieneProveedor()){    
                     if(p.getId()!=0){
@@ -2400,8 +2400,8 @@ public class Ventana1 extends javax.swing.JFrame {
         
             if(!relacion_introducir_proveedor_producto.getText().isEmpty()){
                 
-                String idProductoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-                Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado);
+                Integer idProductoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+                Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado.toString());
                 Proveedor p = controlador.getProveedorPorId(relacion_introducir_proveedor_producto.getText());
                 if(!productoSeleccionado.isTieneProveedor()){
                     if(p.getId() !=0){
