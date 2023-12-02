@@ -144,6 +144,11 @@ public class Cliente {
             pedidos_cliente.add(p);
     }
     
+    public void addPedidoCliente(Pedido p, int pos){
+        if(p != null)
+            pedidos_cliente.add(pos, p);
+    }
+    
     public void borrarPedidoCliente(Pedido p){
         pedidos_cliente.remove(p);
     }

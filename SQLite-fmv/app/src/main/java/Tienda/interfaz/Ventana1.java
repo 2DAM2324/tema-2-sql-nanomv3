@@ -2215,8 +2215,8 @@ public class Ventana1 extends javax.swing.JFrame {
         
             if(!relacion_introducir_cliente_pedido.getText().isEmpty()){
                 
-                String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-                Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
+                Integer idPedidoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+                Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado.toString());
                 if(!pedidoSeleccionado.isAsignado()){
                     Cliente c = controlador.getClientePorDni(relacion_introducir_cliente_pedido.getText());
                     
