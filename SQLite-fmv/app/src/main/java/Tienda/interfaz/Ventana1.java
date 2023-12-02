@@ -431,7 +431,7 @@ public class Ventana1 extends javax.swing.JFrame {
 
         jLabel3.setText("Empleado que supervisa el cliente");
 
-        jLabel5.setText("Añadir empleado (DNI):");
+        jLabel5.setText("Añadir empleado (ID):");
 
         relacion_empleado_cliente_add_button.setText("Añadir");
         relacion_empleado_cliente_add_button.addActionListener(new java.awt.event.ActionListener() {
@@ -512,7 +512,7 @@ public class Ventana1 extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_clienteLayout.createSequentialGroup()
                                     .addComponent(jLabel3)
                                     .addGap(236, 236, 236)
-                                    .addComponent(relacion_empleado_cliente_del_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(relacion_empleado_cliente_del_button, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(panel_clienteLayout.createSequentialGroup()
                                         .addComponent(jLabel5)
@@ -1383,7 +1383,7 @@ public class Ventana1 extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DNI", "Nombre", "Cargo"
+                "ID", "Nombre", "Cargo"
             }
         ) {
             Class[] types = new Class [] {
@@ -2139,8 +2139,8 @@ public class Ventana1 extends javax.swing.JFrame {
             String dniCliente = (String) model_cliente.getValueAt(fila_cliente, 0);
             Cliente clienteSeleccionado = controlador.getClientePorDni(dniCliente);
             
-            String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
+            Integer idPedidoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado.toString());
 
             model.removeRow(fila_seleccionada);
 
@@ -2193,8 +2193,8 @@ public class Ventana1 extends javax.swing.JFrame {
             String dniCliente = (String) model_cliente.getValueAt(fila_cliente, 0);
             Cliente clienteSeleccionado = controlador.getClientePorDni(dniCliente);
             if(clienteSeleccionado.isSupervisado()){
-                String idEmpleadoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-                Empleado EmpleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado);
+                Integer idEmpleadoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+                Empleado EmpleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado.toString());
 
                 model.removeRow(fila_seleccionada);
 
@@ -2506,8 +2506,8 @@ public class Ventana1 extends javax.swing.JFrame {
         int fila_seleccionada = relaicon_tabla_datos_cliente_empleado.getSelectedRow();
 
         if (fila_seleccionada >= 0) {
-            String idEmpleadoSeleccionado = (String) model1.getValueAt(fila_empleado, 0);
-                Empleado empleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado);
+            Integer idEmpleadoSeleccionado = (Integer) model1.getValueAt(fila_empleado, 0);
+                Empleado empleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado.toString());
                 
                 String dniClienteSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
                 Cliente clienteSeleccionado = controlador.getClientePorDni(dniClienteSeleccionado);
