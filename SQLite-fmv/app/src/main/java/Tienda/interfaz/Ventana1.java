@@ -2431,11 +2431,11 @@ public class Ventana1 extends javax.swing.JFrame {
         int fila_seleccionada = relaicon_tabla_datos_proveedor_producto.getSelectedRow();
 
         if (fila_seleccionada >= 0) {
-            String idProducto = (String) model_pedido.getValueAt(fila_producto, 0);
-            Producto productoSeleccionado = controlador.getProductoPorId(idProducto);
+            Integer idProducto = (Integer) model_pedido.getValueAt(fila_producto, 0);
+            Producto productoSeleccionado = controlador.getProductoPorId(idProducto.toString());
             
-            String idProveedorSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedorSeleccionado);
+            Integer idProveedorSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+            Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedorSeleccionado.toString());
 
             model.removeRow(fila_seleccionada);
 
@@ -2453,11 +2453,11 @@ public class Ventana1 extends javax.swing.JFrame {
         int fila_seleccionada = relacion_tabla_datos_producto_proveedor.getSelectedRow();
 
         if (fila_seleccionada >= 0) {
-            String idProveedor = (String) model_pedido.getValueAt(fila_proveedor, 0);
-            Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedor);
+            Integer idProveedor = (Integer) model_pedido.getValueAt(fila_proveedor, 0);
+            Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedor.toString());
             
-            String idProductoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado);
+            Integer idProductoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+            Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado.toString());
 
             model.removeRow(fila_seleccionada);
 

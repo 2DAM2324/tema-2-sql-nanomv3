@@ -196,6 +196,8 @@ public class Controlador {
     public void borrarRelacionProveedorProducto(Producto prod, Proveedor prov){
         prod.borrarProveedor(prov);
         prov.borrarProductoProveedor(prod);
+        
+        borrarProveedorProductoEnBD(prod);
     }
     
     public void relacionClienteEmpleado(Cliente c, Empleado e){
@@ -995,6 +997,33 @@ public class Controlador {
             sentencia.executeUpdate();
             
             System.out.println("id= " + p.getId());
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia!= null){
+                try{
+                    sentencia.close();
+                    
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public void borrarProveedorProductoEnBD(Producto p){
+        
+        System.out.println("borrarProveedorProductoEnBD");
+        String sentenciaSql = "UPDATE Productos SET id_proveedor = NULL WHERE id_producto = ?";
+        PreparedStatement sentencia = null;
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setInt(1, p.getId());
+            sentencia.executeUpdate();
+            
         }catch(SQLException sqle){
             //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
             sqle.printStackTrace();
