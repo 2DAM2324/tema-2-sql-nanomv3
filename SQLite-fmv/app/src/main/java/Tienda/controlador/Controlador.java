@@ -67,6 +67,7 @@ public class Controlador {
         obtenerEmpleadoClienteBD(clientes);
         obtenerClientesEmpleadoBD(empleados);
         obtenerProveedorProductosBD(productos);
+        obtenerProductosProveedorBD(proveedores);
     }
     
     public void cerrarConexion(){
@@ -1064,6 +1065,37 @@ public class Controlador {
         }
 
         return proveedores;
+    }
+    
+    public void obtenerProductosProveedorBD(ArrayList<Proveedor> proveedores) {
+        System.out.println("obtenerProductosProveedorBD");
+        try {
+            //Creo una consulta
+            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT id_producto FROM Productos WHERE id_proveedor = ?");
+
+            for(Proveedor p:proveedores){
+                //Ejecuto la consulta
+                statement.setInt(1, p.getId());
+                ResultSet resultados = statement.executeQuery();
+
+                while (resultados.next()) {
+                    System.out.println("entro en el while");
+                    int id_productos = resultados.getInt("id_producto");
+                    
+                    String id_str = String.valueOf(id_productos);
+                    
+                    Producto prod = getProductoPorId(id_str);
+
+                    if(prod.getId()!=0){
+                        p.setProductos_proveedor(prod);
+                    }else{
+                        System.out.println("no hay productos que valga");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     public void introducirDatosDeProveedoresEnBD(Proveedor p){
