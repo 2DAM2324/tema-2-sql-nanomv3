@@ -547,7 +547,7 @@ public class Ventana1 extends javax.swing.JFrame {
                                         .addGroup(panel_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(relacion_pedido_cliente_del_button, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                                             .addComponent(relacion_pedido_cliente_add_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         panel_clienteLayout.setVerticalGroup(
             panel_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -645,9 +645,9 @@ public class Ventana1 extends javax.swing.JFrame {
             tabla_datos_pedido.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        fecha_label_pedido.setText("Fecha:");
+        fecha_label_pedido.setText("Fecha (DD/MM/AAAA):");
 
-        estado_label_pedido.setText("Estado:");
+        estado_label_pedido.setText("Estado (Entregado / En proceso):");
 
         button_add_pedido.setText("AÒadir");
         button_add_pedido.addActionListener(new java.awt.event.ActionListener() {
@@ -833,7 +833,7 @@ public class Ventana1 extends javax.swing.JFrame {
                                 .addGroup(panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(relacion_producto_pedido_add_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(relacion_producto_pedido_del_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_pedidoLayout.setVerticalGroup(
             panel_pedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1333,7 +1333,7 @@ public class Ventana1 extends javax.swing.JFrame {
                                 .addGroup(panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(relacion_producto_proveedor_add_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(relacion_producto_proveedor_del_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         panel_proveedorLayout.setVerticalGroup(
             panel_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1509,14 +1509,14 @@ public class Ventana1 extends javax.swing.JFrame {
         panel_empleadoLayout.setHorizontalGroup(
             panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_empleadoLayout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
+                .addGap(0, 16, Short.MAX_VALUE)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(button_add_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_mod_empleado)
                     .addComponent(button_del_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
             .addGroup(panel_empleadoLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2534,7 +2534,7 @@ public class Ventana1 extends javax.swing.JFrame {
             if(introducir_dni_cliente.getText().matches("\\d{8}[A-HJ-NP-TV-Z]")){
                 if(introducir_nombre_cliente.getText().matches("[a-zA-Z·ÈÌÛ˙¡…Õ”⁄¸‹Ò—]+")){
                     if(introducir_direccion_cliente.getText().matches("[a-zA-Z·ÈÌÛ˙¡…Õ”⁄¸‹Ò— ]*")){
-                        if(introducir_telf_cliente.getText().matches("\\d{0,9}")){
+                        if(introducir_telf_cliente.getText().matches("\\d{9}")){
                             Cliente c = new Cliente(introducir_dni_cliente.getText(), introducir_nombre_cliente.getText(), introducir_direccion_cliente.getText(), introducir_telf_cliente.getText());
                             if(controlador.comprobarDni(c)){
                                 controlador.agregarCliente(c);
@@ -2568,27 +2568,47 @@ public class Ventana1 extends javax.swing.JFrame {
         try{
             
             if (fila_seleccionada >= 0) {
-                System.out.println("Entro en if");
-                String dniClienteSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-                System.out.println("cliente selec: " + dniClienteSeleccionado);
-                if (!dniClienteSeleccionado.equals(dniClienteSeleccionado)) {
-                    if (!controlador.comprobarDni(dniClienteSeleccionado)) {
-                        Cliente clienteSeleccionado = controlador.getClientePorDni(dniClienteSeleccionado);
-                        Cliente c = new Cliente(dniClienteSeleccionado, introducir_nombre_cliente.getText(), introducir_direccion_cliente.getText(), introducir_telf_cliente.getText());
+                if(!introducir_dni_cliente.getText().isEmpty() && !introducir_nombre_cliente.getText().isEmpty() && !introducir_direccion_cliente.getText().isEmpty() && !introducir_telf_cliente.getText().isEmpty()){  
+                    if(introducir_dni_cliente.getText().matches("\\d{8}[A-HJ-NP-TV-Z]")){
+                        if(introducir_nombre_cliente.getText().matches("[a-zA-Z·ÈÌÛ˙¡…Õ”⁄¸‹Ò—]+")){
+                            if(introducir_direccion_cliente.getText().matches("[a-zA-Z·ÈÌÛ˙¡…Õ”⁄¸‹Ò— ]*")){
+                                if(introducir_telf_cliente.getText().matches("\\d{9}")){
+                                    System.out.println("Entro en if");
+                                    String dniClienteSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
+                                    System.out.println("cliente selec: " + dniClienteSeleccionado);
+                                    if (!dniClienteSeleccionado.equals(dniClienteSeleccionado)) {
+                                        if (!controlador.comprobarDni(dniClienteSeleccionado)) {
+                                            Cliente clienteSeleccionado = controlador.getClientePorDni(dniClienteSeleccionado);
+                                            Cliente c = new Cliente(dniClienteSeleccionado, introducir_nombre_cliente.getText(), introducir_direccion_cliente.getText(), introducir_telf_cliente.getText());
 
-                        controlador.modificarCliente(clienteSeleccionado, c);
-                        ArrayList<Cliente> clientes = controlador.listaClientes();
-                        mostrarDatosCliente(clientes);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "El DNI ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            controlador.modificarCliente(clienteSeleccionado, c);
+                                            ArrayList<Cliente> clientes = controlador.listaClientes();
+                                            mostrarDatosCliente(clientes);
+                                        } else {
+                                            JOptionPane.showMessageDialog(this, "El DNI ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
+                                        }
+                                    } else {
+                                        Cliente clienteSeleccionado = controlador.getClientePorDni(dniClienteSeleccionado);
+                                        Cliente c = new Cliente(dniClienteSeleccionado, introducir_nombre_cliente.getText(), introducir_direccion_cliente.getText(), introducir_telf_cliente.getText());
+
+                                        controlador.modificarCliente(clienteSeleccionado, c);
+                                        ArrayList<Cliente> clientes = controlador.listaClientes();
+                                        mostrarDatosCliente(clientes);
+                                    }
+                                }else{
+                                    JOptionPane.showMessageDialog(this, "Introduzca un telÈfono v·lido", "Error", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }else{
+                                JOptionPane.showMessageDialog(this, "Introduzca un formato v·lido en la direcciÛn", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Introduzca un formato v·lido en el nombre", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Escriba un formato v·lido para el DNI (La letra debe estar en may˙scula)", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                } else {
-                    Cliente clienteSeleccionado = controlador.getClientePorDni(dniClienteSeleccionado);
-                    Cliente c = new Cliente(dniClienteSeleccionado, introducir_nombre_cliente.getText(), introducir_direccion_cliente.getText(), introducir_telf_cliente.getText());
-
-                    controlador.modificarCliente(clienteSeleccionado, c);
-                    ArrayList<Cliente> clientes = controlador.listaClientes();
-                    mostrarDatosCliente(clientes);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Por favor, complete la informaciÛn.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, selecciona un cliente para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -2640,16 +2660,24 @@ public class Ventana1 extends javax.swing.JFrame {
     
     private void button_add_pedidoActionPerformed(java.awt.event.ActionEvent evt){
         if(!introducir_fecha_pedido.getText().isEmpty() && !introducir_estado_pedido.getText().isEmpty()){  
-            Pedido p = new Pedido(introducir_fecha_pedido.getText(),introducir_estado_pedido.getText());
-            if(controlador.comprobarId(p)){
-                controlador.agregarPedido(p);
-            }else{
-                JOptionPane.showMessageDialog(this, "No pueden coincidir las IDs.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            if(introducir_fecha_pedido.getText().matches("\\b(0?[1-9]|[12]\\d|3[01])/(0?[1-9]|1[0-2])/(\\d{4})\\b")){  
+                String estadoLowerCase = introducir_estado_pedido.getText().toLowerCase();
+                if(estadoLowerCase.equals("entregado") || estadoLowerCase.equals("en proceso")){    
+                    Pedido p = new Pedido(introducir_fecha_pedido.getText(),estadoLowerCase);
+                    if(controlador.comprobarId(p)){
+                        controlador.agregarPedido(p);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "No pueden coincidir las IDs.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
 
-            ArrayList<Pedido> pedidos = controlador.listaPedidos();
-            mostrarDatosPedido(pedidos);
-            //TODO: Leer los clientes del XML
+                    ArrayList<Pedido> pedidos = controlador.listaPedidos();
+                    mostrarDatosPedido(pedidos);
+                }else{
+                    JOptionPane.showMessageDialog(this, "El estado debe ser \"Entregado\" o \"En proceso\"", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "Por favor, complete la informaciÔøΩn.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -2662,17 +2690,29 @@ public class Ventana1 extends javax.swing.JFrame {
         try{
             
             if (fila_seleccionada >= 0) {
-                System.out.println("Entro en if");
-                Integer idPedidoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
-                System.out.println("id: "+ idPedidoSeleccionado);
-                Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado.toString());
-                Pedido p = new Pedido(introducir_fecha_pedido.getText(), introducir_estado_pedido.getText());
-                
-                controlador.modificarPedido(pedidoSeleccionado, p);
-                ArrayList<Pedido> pedidos = controlador.listaPedidos();
-                
-                mostrarDatosPedido(pedidos);
-                
+                if(!introducir_fecha_pedido.getText().isEmpty() && !introducir_estado_pedido.getText().isEmpty()){  
+                    if(introducir_fecha_pedido.getText().matches("\\b(0?[1-9]|[12]\\d|3[01])/(0?[1-9]|1[0-2])/(\\d{4})\\b")){  
+                        String estadoLowerCase = introducir_estado_pedido.getText().toLowerCase();
+                        if(estadoLowerCase.equals("entregado") || estadoLowerCase.equals("en proceso")){    
+                            System.out.println("Entro en if");
+                            Integer idPedidoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+                            System.out.println("id: "+ idPedidoSeleccionado);
+                            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado.toString());
+                            Pedido p = new Pedido(introducir_fecha_pedido.getText(), estadoLowerCase);
+
+                            controlador.modificarPedido(pedidoSeleccionado, p);
+                            ArrayList<Pedido> pedidos = controlador.listaPedidos();
+
+                            mostrarDatosPedido(pedidos); 
+                        }else{
+                            JOptionPane.showMessageDialog(this, "El estado debe ser \"Entregado\" o \"En proceso\"", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Por favor, complete la informaciÔøΩn.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, selecciona un cliente para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
             }
