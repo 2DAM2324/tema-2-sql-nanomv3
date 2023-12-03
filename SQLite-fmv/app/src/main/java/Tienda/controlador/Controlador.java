@@ -573,7 +573,7 @@ public class Controlador {
     } 
     
     public void borrarDatosClienteEnBD(Cliente c){
-        String sentenciaSql = "UPDATE Clientes SET id_pedido = ? "
+        String sentenciaSql = "DELETE FROM Clientes "
                 + "WHERE dni = ?";
         PreparedStatement sentencia = null;
         

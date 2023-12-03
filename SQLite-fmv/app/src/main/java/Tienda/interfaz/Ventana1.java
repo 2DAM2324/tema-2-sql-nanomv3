@@ -2531,16 +2531,31 @@ public class Ventana1 extends javax.swing.JFrame {
     
     private void button_add_clienteActionPerformed(java.awt.event.ActionEvent evt){
         if(!introducir_dni_cliente.getText().isEmpty() && !introducir_nombre_cliente.getText().isEmpty() && !introducir_direccion_cliente.getText().isEmpty() && !introducir_telf_cliente.getText().isEmpty()){  
-            Cliente c = new Cliente(introducir_dni_cliente.getText(), introducir_nombre_cliente.getText(), introducir_direccion_cliente.getText(), introducir_telf_cliente.getText());
-            if(controlador.comprobarDni(c)){
-                controlador.agregarCliente(c);
-            }else{
-                JOptionPane.showMessageDialog(this, "No pueden coincidir varios DNIs.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            if(introducir_dni_cliente.getText().matches("\\d{8}[A-HJ-NP-TV-Z]")){
+                if(introducir_nombre_cliente.getText().matches("[a-zA-Z·ÈÌÛ˙¡…Õ”⁄¸‹Ò—]+")){
+                    if(introducir_direccion_cliente.getText().matches("[a-zA-Z·ÈÌÛ˙¡…Õ”⁄¸‹Ò— ]*")){
+                        if(introducir_telf_cliente.getText().matches("\\d{0,9}")){
+                            Cliente c = new Cliente(introducir_dni_cliente.getText(), introducir_nombre_cliente.getText(), introducir_direccion_cliente.getText(), introducir_telf_cliente.getText());
+                            if(controlador.comprobarDni(c)){
+                                controlador.agregarCliente(c);
+                            }else{
+                                JOptionPane.showMessageDialog(this, "No pueden coincidir varios DNIs.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
 
-            ArrayList<Cliente> clientes = controlador.listaClientes();
-            mostrarDatosCliente(clientes);
-            //TODO: Leer los clientes del XML
+                            ArrayList<Cliente> clientes = controlador.listaClientes();
+                            mostrarDatosCliente(clientes);
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Introduzca un telÈfono v·lido", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Introduzca un formato v·lido en la direcciÛn", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Introduzca un formato v·lido en el nombre", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Escriba un formato v·lido para el DNI (La letra debe estar en may˙scula)", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "Por favor, complete la informaciÛn.", "Error", JOptionPane.ERROR_MESSAGE);
         }
