@@ -68,6 +68,7 @@ public class Controlador {
         obtenerClientesEmpleadoBD(empleados);
         obtenerProveedorProductosBD(productos);
         obtenerProductosProveedorBD(proveedores);
+        obtenerPedidoProductosBD(productos);
     }
     
     public void cerrarConexion(){
@@ -879,6 +880,35 @@ public class Controlador {
                 productos.add(producto);
             }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productos;
+    }
+    
+    public ArrayList<Producto> obtenerPedidoProductosBD(ArrayList<Producto> productos) {
+
+        try {
+            //Creo una consulta
+            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT id_pedido FROM Contiene WHERE id_producto = ?");
+
+            for(Producto p : productos){
+                //Ejecuto la consulta
+                statement.setInt(1, p.getId());
+                ResultSet resultados = statement.executeQuery();
+
+                //Introduzco los datos de la bd y voy creando los clientes
+                while (resultados.next()) {
+                    int id = resultados.getInt("id_pedido");
+                    
+                    String id_str = String.valueOf(id);
+                    
+                    Pedido ped = getPedidoPorId(id_str);
+                    
+                    p.agregarPedido(ped);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
