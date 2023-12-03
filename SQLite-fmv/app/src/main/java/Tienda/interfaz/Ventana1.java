@@ -1738,34 +1738,38 @@ public class Ventana1 extends javax.swing.JFrame {
             String stock = introducir_stock_proveedor.getText().toUpperCase();
             boolean hay_stock = false;
             if (fila_seleccionada >= 0) {
-                if(introducir_precio_proveedor.getText().matches("^[0-9]+(\\.[0-9]+)?$")){
-                    if (stock.equals("SI") || stock.equals("NO")) {
+                if(introducir_nom_empresa_proveedor.getText().matches("[a-zA-Z·ÈÌÛ˙¡…Õ”⁄¸‹Ò— ]+")){
+                    if(introducir_precio_proveedor.getText().matches("^[0-9]+(\\.[0-9]+)?$")){
+                        if (stock.equals("SI") || stock.equals("NO")) {
 
-                        System.out.println("Entro en if");
-                        Integer idProveedorSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
-                        System.out.println("id: "+ idProveedorSeleccionado);
-                        Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedorSeleccionado.toString());
+                            System.out.println("Entro en if");
+                            Integer idProveedorSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+                            System.out.println("id: "+ idProveedorSeleccionado);
+                            Proveedor proveedorSeleccionado = controlador.getProveedorPorId(idProveedorSeleccionado.toString());
 
-                        if(stock.equals("SI")){
-                            hay_stock = true;
+                            if(stock.equals("SI")){
+                                hay_stock = true;
+                            }
+                            else if(stock.equals("NO")){
+                                hay_stock = false;
+                            }
+
+                            double precio = Double.parseDouble(introducir_precio_proveedor.getText());
+
+                            Proveedor p = new Proveedor(introducir_nom_empresa_proveedor.getText(), precio, hay_stock);
+
+                            controlador.modificarProveedor(proveedorSeleccionado, p);
+                            ArrayList<Proveedor> proveedores = controlador.listaProveedores();
+
+                            mostrarDatosProveedor(proveedores);
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Las introducciones v·lidas en Stock son: SI/NO.", "Error", JOptionPane.ERROR_MESSAGE);
                         }
-                        else if(stock.equals("NO")){
-                            hay_stock = false;
-                        }
-                        
-                        double precio = Double.parseDouble(introducir_precio_proveedor.getText());
-
-                        Proveedor p = new Proveedor(introducir_nom_empresa_proveedor.getText(), precio, hay_stock);
-
-                        controlador.modificarProveedor(proveedorSeleccionado, p);
-                        ArrayList<Proveedor> proveedores = controlador.listaProveedores();
-
-                        mostrarDatosProveedor(proveedores);
                     }else{
-                        JOptionPane.showMessageDialog(this, "Las introducciones v·lidas en Stock son: SI/NO.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Por favor, introduzca un n˙mero v·lido.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }else{
-                    JOptionPane.showMessageDialog(this, "Por favor, introduzca un n˙mero v·lido.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Escriba un nombre v·lido", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, selecciona un proveedor para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1779,38 +1783,41 @@ public class Ventana1 extends javax.swing.JFrame {
         if (!introducir_nom_empresa_proveedor.getText().isEmpty() && 
         !introducir_precio_proveedor.getText().isEmpty() && 
         !introducir_stock_proveedor.getText().isEmpty()) {
-        
-            String stock = introducir_stock_proveedor.getText().toUpperCase();
-            boolean hay_stock = false;
+            if(introducir_nom_empresa_proveedor.getText().matches("[a-zA-Z·ÈÌÛ˙¡…Õ”⁄¸‹Ò— ]+")){
+                String stock = introducir_stock_proveedor.getText().toUpperCase();
+                boolean hay_stock = false;
 
-            if(introducir_precio_proveedor.getText().matches("^[0-9]+(\\.[0-9]+)?$")){
-                if (stock.equals("SI") || stock.equals("NO")) {
+                if(introducir_precio_proveedor.getText().matches("^[0-9]+(\\.[0-9]+)?$")){
+                    if (stock.equals("SI") || stock.equals("NO")) {
 
-                    if(stock.equals("SI")){
-                        hay_stock = true;
-                    }
-                    else if(stock.equals("NO")){
-                        hay_stock = false;
-                    }
+                        if(stock.equals("SI")){
+                            hay_stock = true;
+                        }
+                        else if(stock.equals("NO")){
+                            hay_stock = false;
+                        }
 
-                    double precio = Double.parseDouble(introducir_precio_proveedor.getText());
+                        double precio = Double.parseDouble(introducir_precio_proveedor.getText());
 
-                    Proveedor p = new Proveedor(introducir_nom_empresa_proveedor.getText(), precio, hay_stock);
+                        Proveedor p = new Proveedor(introducir_nom_empresa_proveedor.getText(), precio, hay_stock);
 
-                    if (controlador.comprobarId(p)) {
-                        controlador.agregarProveedor(p);
+                        if (controlador.comprobarId(p)) {
+                            controlador.agregarProveedor(p);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "No pueden coincidir las IDs.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        ArrayList<Proveedor> proveedores = controlador.listaProveedores();
+                        mostrarDatosProveedor(proveedores);
+                        //TODO: Leer los clientes del XML
                     } else {
-                        JOptionPane.showMessageDialog(this, "No pueden coincidir las IDs.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Las introducciones v·lidas en Stock son: SI/NO.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-
-                    ArrayList<Proveedor> proveedores = controlador.listaProveedores();
-                    mostrarDatosProveedor(proveedores);
-                    //TODO: Leer los clientes del XML
-                } else {
-                    JOptionPane.showMessageDialog(this, "Las introducciones v·lidas en Stock son: SI/NO.", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(this, "El precio debe ser un n˙mero v·lido.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }else{
-                JOptionPane.showMessageDialog(this, "El precio debe ser un n˙mero v·lido.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Escriba un nombre v·lido", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, complete la informaciÛn.", "Error", JOptionPane.ERROR_MESSAGE);
