@@ -72,40 +72,58 @@ public class Controlador {
         obtenerProductosPedidoBD(pedidos);
     }
     
+    /**
+    * @brief Cierra la conexión a la base de datos.
+    */
     public void cerrarConexion(){
-        conexion.cerrarConexion();
-    }
-    
-    public void agregarCliente(Cliente c){
-        clientes.add(c);
-        
-        introducirDatosDeClientesEnBD(c);
-        
+       conexion.cerrarConexion();
     }
 
+    /**
+    * @brief Agrega un nuevo cliente a la lista e inserta datos en la base de datos.
+    * @param c El cliente que se va a agregar.
+    */
+    public void agregarCliente(Cliente c){
+       clientes.add(c);
+       introducirDatosDeClientesEnBD(c);
+    }
+
+    /**
+     * @brief Modifica un cliente existente en la lista y actualiza la base de datos.
+     * @param cliente_borrar El cliente que se va a reemplazar.
+     * @param cliente_modificado El cliente modificado.
+     */
     public void modificarCliente(Cliente cliente_borrar, Cliente cliente_modificado){
         int posicionCliente = clientes.indexOf(cliente_borrar);
-
         if (posicionCliente >= 0) {
             clientes.set(posicionCliente, cliente_modificado);
         }
-        
         modificarDatosClienteEnBD(cliente_modificado, cliente_borrar);
     }
 
+    /**
+     * @brief Elimina un cliente de la lista y borra datos asociados de la base de datos.
+     * @param c El cliente que se va a eliminar.
+     */
     public void borrarCliente(Cliente c){
-        
         if(clientes != null)
             clientes.remove(c);
-        
-        System.out.println("saize clientes: " + clientes.isEmpty());
         borrarDatosClienteEnBD(c);
-        
     }
+
+    /**
+     * @brief Obtiene la lista de clientes.
+     * @return ArrayList de clientes.
+     */
     public ArrayList<Cliente> listaClientes(){
         return clientes;
     }
-    
+
+    /**
+     * @brief Busca un cliente por su dni.
+     * @param dni
+     * @return Cliente con el dni insertado.
+     */
     public Cliente getClientePorDni(String dni){
         Cliente c = new Cliente();
         
@@ -117,6 +135,11 @@ public class Controlador {
         return c;
     }
     
+    /**
+     * @brief Comprueba que un dni existe.
+     * @param c
+     * @return si el dni existe o no.
+     */
     public boolean comprobarDni(Cliente c){
         
         for(Cliente cliente : clientes){
@@ -127,6 +150,11 @@ public class Controlador {
         return true;
     }
     
+    /**
+     * @brief Comprueba que un dni existe.
+     * @param dni
+     * @return si el dni existe o no.
+     */
     public boolean comprobarDni(String dni){
         
         for(Cliente cliente : clientes){
@@ -137,6 +165,11 @@ public class Controlador {
         return true;
     }
     
+    /**
+     * @brief Añade un pedido al atributo pedido del cliente y el cliente al atributo cliente del pedido.
+     * @param c
+     * @param p
+     */
     public void relacionPedidosCliente(Cliente c, Pedido p){
         System.out.println("Relacion pedio cliente");
         
@@ -149,6 +182,11 @@ public class Controlador {
         introducirPedidoDeClienteEnBD(p);
     }
     
+    /**
+     * @brief Borra la relacion del pedido con el cliente.
+     * @param c
+     * @param p
+     */
     public void borrarRelacionPedidoCliente(Cliente c, Pedido p){
         System.out.println("borrar relacion");
         
@@ -160,6 +198,11 @@ public class Controlador {
         borrarClientePedidoEnBD(p);
     }
     
+    /**
+     * @brief Crea la relacion del empleado con el cliente.
+     * @param c
+     * @param e
+     */
     public void relacionEmpleadoCliente(Cliente c, Empleado e){
         c.setEmpleadoTienda(e);
         e.setClientes_tienda(c);
@@ -167,6 +210,11 @@ public class Controlador {
         introducirEmpleadoClienteEnBD(c);
     }
     
+    /**
+     * @brief Borra la relacion del empleado con el cliente.
+     * @param c
+     * @param e
+     */
     public void borrarRelacionEmpleadoCliente(Cliente c, Empleado e){
         c.borrarEmpleadoTienda(e);
         e.borrarCliente(c);
@@ -174,6 +222,11 @@ public class Controlador {
         borrarEmpleadoClienteEnBD(c);
     }
     
+    /**
+     * @brief Crea la relacion del producto con el pedido.
+     * @param prod
+     * @param ped
+     */
     public void relacionProductoPedido(Producto prod, Pedido ped){
         prod.setPedidos_producto(ped);
         ped.agregarProducto(prod);
@@ -181,12 +234,22 @@ public class Controlador {
         introducirPedidoProductosEnBD(ped, prod);
     }
     
+    /**
+     * @brief Borra la relacion del producto con el pedido.
+     * @param c
+     * @param e
+     */
     public void borrarRelacionProductoPedido(Producto prod, Pedido ped){
         prod.borrarPedido(ped);
         ped.borrarProducto(prod);
         borrarProductosPedidoEnBD(prod, ped);
     }
     
+    /**
+     * @brief Crea la relacion del producto con el proveedor.
+     * @param prod
+     * @param prov
+     */
     public void relacionProveedorProducto(Producto prod, Proveedor prov){
         prod.setProveedor(prov);
         prov.setProductos_proveedor(prod);
@@ -194,6 +257,11 @@ public class Controlador {
         introducirProveedorProductosEnBD(prod);
     }
     
+    /**
+     * @brief Borra la relacion del producto con el proveedor.
+     * @param prod
+     * @param prov
+     */
     public void borrarRelacionProveedorProducto(Producto prod, Proveedor prov){
         prod.borrarProveedor(prov);
         prov.borrarProductoProveedor(prod);
@@ -201,6 +269,11 @@ public class Controlador {
         borrarProveedorProductoEnBD(prod);
     }
     
+    /**
+     * @brief Crea la relacion del cliente con el empleado.
+     * @param c
+     * @param e
+     */
     public void relacionClienteEmpleado(Cliente c, Empleado e){
         c.setEmpleadoTienda(e);
         e.setClientes_tienda(c);
@@ -208,18 +281,32 @@ public class Controlador {
         introducirEmpleadoClienteEnBD(c);
     }
     
+    /**
+     * @brief Borra la relacion del cliente con el empleado.
+     * @param c
+     * @param e
+     */
     public void borrarRelacionClienteEmpleado(Cliente c, Empleado e){
         c.borrarEmpleadoTienda(e);
         e.borrarCliente(c);
         borrarEmpleadoClienteEnBD(c);
     }
     
+    /**
+     * @brief Agrega un pedido al arraylist de pedidos.
+     * @param p
+     */
     public void agregarPedido(Pedido p){
         pedidos.add(p);
                 
         introducirDatosDePedidosEnBD(p);        
     }
     
+    /**
+     * @brief Modifica los atributos de un pedido.
+     * @param pedido_borrar
+     * @param pedido_modificado
+     */
     public void modificarPedido(Pedido pedido_borrar, Pedido pedido_modificado){
         int posicionPedido = pedidos.indexOf(pedido_borrar);
 
@@ -230,6 +317,10 @@ public class Controlador {
         modificarDatosPedidosEnBD(pedido_modificado, pedido_borrar);
     }
     
+    /**
+     * @brief Borra un pedido.
+     * @param p
+     */
     public void borrarPedido(Pedido p){
         if(pedidos != null)
             pedidos.remove(p);
@@ -237,10 +328,19 @@ public class Controlador {
         borrarDatosPedidoEnBD(p);        
     }
     
+    /**
+    * @brief Obtiene la lista de pedidos.
+    * @return ArrayList de pedidos.
+    */
     public ArrayList<Pedido> listaPedidos(){
         return pedidos;
     }
     
+    /**
+     * @brief Obtiene un pedido por su identificador.
+     * @param id El identificador del pedido a buscar.
+     * @return El pedido correspondiente al identificador proporcionado.
+     */
     public Pedido getPedidoPorId(String id){
         Pedido p = new Pedido();
         System.out.println("getPedidoPorid");
@@ -257,6 +357,13 @@ public class Controlador {
         return p;
     }
     
+    /**
+     * @brief Verifica si un identificador de pedido es único en la lista de
+     * pedidos.
+     * @param p El pedido cuyo identificador se va a verificar.
+     * @return True si el identificador es único, False si ya existe en la
+     * lista.
+     */
     public boolean comprobarId(Pedido p){
         
         for(Pedido pedido : pedidos){
@@ -267,12 +374,23 @@ public class Controlador {
         return true;
     }
     
+    /**
+     * @brief Agrega un nuevo producto a la lista e inserta datos en la base de
+     * datos.
+     * @param p El producto que se va a agregar.
+     */
     public void agregarProducto(Producto p){
         productos.add(p);
         
         introducirDatosDeProductosEnBD(p);
     }
     
+    /**
+     * @brief Modifica un producto existente en la lista y actualiza la base de
+     * datos.
+     * @param producto_borrar El producto que se va a reemplazar.
+     * @param producto_modificado El producto modificado.
+     */
     public void modificarProducto(Producto producto_borrar, Producto producto_modificado){
         int posicionProducto = productos.indexOf(producto_borrar);
 
@@ -283,6 +401,11 @@ public class Controlador {
         modificarDatosProductosEnBD(producto_modificado, producto_borrar);
     }
     
+    /**
+     * @brief Elimina un producto de la lista y borra datos asociados de la base
+     * de datos.
+     * @param p El producto que se va a eliminar.
+     */
     public void borrarProducto(Producto p){
         if(productos != null)
             productos.remove(p);
@@ -290,10 +413,19 @@ public class Controlador {
         borrarDatosProductosEnBD(p);
     }
     
+    /**
+     * @brief Obtiene la lista de productos.
+     * @return ArrayList de productos.
+     */
     public ArrayList<Producto> listaProductos(){
         return productos;
     }
     
+    /**
+     * @brief Obtiene un producto por su identificador.
+     * @param id El identificador del producto a buscar.
+     * @return El producto correspondiente al identificador proporcionado.
+     */
     public Producto getProductoPorId(String id){
         Producto p = new Producto();
         int idInt = Integer.valueOf(id);
@@ -305,6 +437,13 @@ public class Controlador {
         return p;
     }
     
+    /**
+     * @brief Verifica si un identificador de producto es único en la lista de
+     * productos.
+     * @param p El producto cuyo identificador se va a verificar.
+     * @return True si el identificador es único, False si ya existe en la
+     * lista.
+     */
     public boolean comprobarId(Producto p){
         
         for(Producto producto : productos){
@@ -315,12 +454,23 @@ public class Controlador {
         return true;
     }
     
+    /**
+     * @brief Agrega un nuevo proveedor a la lista e inserta datos en la base de
+     * datos.
+     * @param p El proveedor que se va a agregar.
+     */
     public void agregarProveedor(Proveedor p){
         proveedores.add(p);
 
        introducirDatosDeProveedoresEnBD(p);
     }
     
+    /**
+     * @brief Modifica un proveedor existente en la lista y actualiza la base de
+     * datos.
+     * @param proveedor_borrar El proveedor que se va a reemplazar.
+     * @param proveedor_modificado El proveedor modificado.
+     */
     public void modificarProveedor(Proveedor proveedor_borrar, Proveedor proveedor_modificado){
         int posicionProveedor = proveedores.indexOf(proveedor_borrar);
 
@@ -331,6 +481,11 @@ public class Controlador {
         modificarDatosProveedorEnBD(proveedor_modificado, proveedor_borrar);
     }
     
+    /**
+     * @brief Elimina un proveedor de la lista y borra datos asociados de la
+     * base de datos.
+     * @param p El proveedor que se va a eliminar.
+     */
     public void borrarProveedor(Proveedor p){
         if(proveedores != null)
             proveedores.remove(p);
@@ -338,10 +493,19 @@ public class Controlador {
         borrarDatosProveedoresEnBD(p);
     }
     
+    /**
+     * @brief Obtiene la lista de proveedores.
+     * @return ArrayList de proveedores.
+     */
     public ArrayList<Proveedor> listaProveedores(){
         return proveedores;
     }
     
+    /**
+     * @brief Obtiene un proveedor según su ID.
+     * @param id El ID del proveedor a buscar.
+     * @return Proveedor encontrado o un nuevo Proveedor si no se encuentra.
+     */
     public Proveedor getProveedorPorId(String id){
         Proveedor p = new Proveedor();
         int idInt = Integer.valueOf(id);
@@ -352,7 +516,11 @@ public class Controlador {
         }
         return p;
     }
-    
+    /**
+     * @brief Verifica si un proveedor ya existe en la lista.
+     * @param p El proveedor a comprobar.
+     * @return True si el proveedor no existe en la lista, False si ya existe.
+     */
     public boolean comprobarId(Proveedor p){
         
         for(Proveedor proveedor : proveedores){
@@ -363,12 +531,23 @@ public class Controlador {
         return true;
     }
     
+    /**
+     * @brief Agrega un nuevo empleado a la lista e inserta datos en la base de
+     * datos.
+     * @param e El empleado que se va a agregar.
+     */
     public void agregarEmpleado(Empleado e){
         empleados.add(e);
         
         introducirDatosDeEmpleadosEnBD(e);
     }
     
+    /**
+     * @brief Modifica un empleado existente en la lista y actualiza la base de
+     * datos.
+     * @param empleado_borrar El empleado que se va a reemplazar.
+     * @param empleado_modificado El empleado modificado.
+     */
     public void modificarEmpleado(Empleado empleado_borrar, Empleado empleado_modificado){
         int posicionEmpleado = empleados.indexOf(empleado_borrar);
 
@@ -379,6 +558,11 @@ public class Controlador {
         modificarDatosEmpleadosEnBD(empleado_modificado, empleado_borrar);
     }
     
+    /**
+     * @brief Elimina un empleado de la lista y borra datos asociados de la base
+     * de datos.
+     * @param e El empleado que se va a eliminar.
+     */
     public void borrarEmpleado(Empleado e){
         if(empleados != null)
             empleados.remove(e);
@@ -386,10 +570,19 @@ public class Controlador {
         borrarDatosEmpleadosEnBD(e);
     }
     
+    /**
+     * @brief Obtiene la lista de empleados.
+     * @return ArrayList de empleados.
+     */
     public ArrayList<Empleado> listaEmpleados(){
         return empleados;
     }
     
+    /**
+     * @brief Obtiene un empleado según su ID.
+     * @param id El ID del empleado a buscar.
+     * @return Empleado encontrado o un nuevo Empleado si no se encuentra.
+     */
     public Empleado getEmpleadoPorId(String id){
         Empleado e = new Empleado();
         int idInt = Integer.valueOf(id);
@@ -402,6 +595,11 @@ public class Controlador {
         return e;
     }
     
+    /**
+     * @brief Verifica si un empleado ya existe en la lista.
+     * @param e El empleado a comprobar.
+     * @return True si el empleado no existe en la lista, False si ya existe.
+     */    
     public boolean comprobarId(Empleado e){
         
         for(Empleado empleado : empleados){
