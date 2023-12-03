@@ -1926,38 +1926,41 @@ public class Ventana1 extends javax.swing.JFrame {
         if (!introducir_nombre_producto.getText().isEmpty() && 
         !introducir_precio_producto.getText().isEmpty() && 
         !introducir_stock_producto.getText().isEmpty()) {
-        
-            String stock = introducir_stock_producto.getText().toUpperCase();
-            boolean hay_stock = false;
+            if(introducir_nombre_producto.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+")){
+                String stock = introducir_stock_producto.getText().toUpperCase();
+                boolean hay_stock = false;
 
-            if(introducir_precio_producto.getText().matches("^[0-9]+(\\.[0-9]+)?$")){
-                if (stock.equals("SI") || stock.equals("NO")) {
+                if(introducir_precio_producto.getText().matches("^[0-9]+(\\.[0-9]+)?$")){
+                    if (stock.equals("SI") || stock.equals("NO")) {
 
-                    if(stock.equals("SI")){
-                        hay_stock = true;
-                    }
-                    else if(stock.equals("NO")){
-                        hay_stock = false;
-                    }
+                        if(stock.equals("SI")){
+                            hay_stock = true;
+                        }
+                        else if(stock.equals("NO")){
+                            hay_stock = false;
+                        }
 
-                    double precio = Double.parseDouble(introducir_precio_producto.getText());
+                        double precio = Double.parseDouble(introducir_precio_producto.getText());
 
-                    Producto p = new Producto(introducir_nombre_producto.getText(), hay_stock, precio);
+                        Producto p = new Producto(introducir_nombre_producto.getText(), hay_stock, precio);
 
-                    if (controlador.comprobarId(p)) {
-                        controlador.agregarProducto(p);
+                        if (controlador.comprobarId(p)) {
+                            controlador.agregarProducto(p);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "No pueden coincidir las IDs.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        ArrayList<Producto> productos = controlador.listaProductos();
+                        mostrarDatosProducto(productos);
+                        //TODO: Leer los clientes del XML
                     } else {
-                        JOptionPane.showMessageDialog(this, "No pueden coincidir las IDs.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Las introducciones válidas en Stock son: SI/NO.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-
-                    ArrayList<Producto> productos = controlador.listaProductos();
-                    mostrarDatosProducto(productos);
-                    //TODO: Leer los clientes del XML
-                } else {
-                    JOptionPane.showMessageDialog(this, "Las introducciones válidas en Stock son: SI/NO.", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(this, "El precio debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }else{
-                JOptionPane.showMessageDialog(this, "El precio debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Introduzca un formato válido para el nombre", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, complete la información.", "Error", JOptionPane.ERROR_MESSAGE);
