@@ -69,6 +69,7 @@ public class Controlador {
         obtenerProveedorProductosBD(productos);
         obtenerProductosProveedorBD(proveedores);
         obtenerPedidoProductosBD(productos);
+        obtenerProductosPedidoBD(pedidos);
     }
     
     public void cerrarConexion(){
@@ -177,14 +178,13 @@ public class Controlador {
         prod.setPedidos_producto(ped);
         ped.agregarProducto(prod);
         
-        //ped.escribirXML(pedidos);
+        introducirPedidoProductosEnBD(ped, prod);
     }
     
     public void borrarRelacionProductoPedido(Producto prod, Pedido ped){
         prod.borrarPedido(ped);
         ped.borrarProducto(prod);
-        
-        //ped.escribirXML(pedidos);
+        borrarProductosPedidoEnBD(prod, ped);
     }
     
     public void relacionProveedorProducto(Producto prod, Proveedor prov){
@@ -682,6 +682,33 @@ public class Controlador {
         return pedidos;
     }
     
+    public void obtenerProductosPedidoBD(ArrayList<Pedido> pedidos) {
+
+        try {
+            //Creo una consulta
+            PreparedStatement statement = conexion.obtenerConexion().prepareStatement("SELECT id_producto FROM Contiene WHERE id_pedido = ?");
+
+            for(Pedido p : pedidos){
+                //Ejecuto la consulta
+                statement.setInt(1, p.getId());
+                ResultSet resultados = statement.executeQuery();
+
+                //Introduzco los datos de la bd y voy creando los clientes
+                while (resultados.next()) {
+                    int id = resultados.getInt("id_producto");
+                    
+                    String id_str = String.valueOf(id);
+                    
+                    Producto prod = getProductoPorId(id_str);
+                    
+                    p.agregarProducto(prod);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void obtenerClientePedidoBD(ArrayList<Pedido> pedidos){
         System.out.println("ljfdnonfdoa");
         try {
@@ -832,6 +859,7 @@ public class Controlador {
         }
     }
     
+    
     public void modificarDatosPedidosEnBD(Pedido p, Pedido antiguo_p) {
         String sentenciaSql = "UPDATE Pedidos SET fecha = ?, estado = ? WHERE id_pedido = ?";
         PreparedStatement sentencia = null;
@@ -887,7 +915,7 @@ public class Controlador {
         return productos;
     }
     
-    public ArrayList<Producto> obtenerPedidoProductosBD(ArrayList<Producto> productos) {
+    public void obtenerPedidoProductosBD(ArrayList<Producto> productos) {
 
         try {
             //Creo una consulta
@@ -912,8 +940,6 @@ public class Controlador {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return productos;
     }
     
     public void obtenerProveedorProductosBD(ArrayList<Producto> productos){
@@ -983,6 +1009,33 @@ public class Controlador {
         }
     }
     
+    public void introducirPedidoProductosEnBD(Pedido ped, Producto prod){
+                
+        String sentenciaSql = "INSERT INTO Contiene (id_pedido, id_producto) VALUES (?, ?)";
+        
+        PreparedStatement sentencia = null;
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            
+            sentencia.setInt(1, ped.getId());
+            sentencia.setInt(2, prod.getId());
+            sentencia.executeUpdate();
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia != null){
+                try{
+                    sentencia.close();
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    } 
+    
     public void introducirProveedorProductosEnBD(Producto p){
         System.out.println("introducirProveedorProductosEnBD");
         String sentenciaSql = "UPDATE Productos SET id_proveedor = ? WHERE id_producto = ?";
@@ -1027,6 +1080,34 @@ public class Controlador {
             sentencia.executeUpdate();
             
             System.out.println("id= " + p.getId());
+        }catch(SQLException sqle){
+            //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        }finally{
+            if(sentencia!= null){
+                try{
+                    sentencia.close();
+                    
+                }catch(SQLException sqle){
+                    //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    sqle.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public void borrarProductosPedidoEnBD(Producto prod, Pedido ped){
+        
+        System.out.println("borrarProductosPedidoEnBD");
+        String sentenciaSql = "DELETE FROM Contiene WHERE id_producto = ? AND id_pedido = ?";
+        PreparedStatement sentencia = null;
+        
+        try{
+            sentencia = conexion.obtenerConexion().prepareStatement(sentenciaSql);
+            sentencia.setInt(1, prod.getId());
+            sentencia.setInt(2, ped.getId());
+            sentencia.executeUpdate();
+            
         }catch(SQLException sqle){
             //JOptionPane.showMessageDialog(this,"Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
             sqle.printStackTrace();

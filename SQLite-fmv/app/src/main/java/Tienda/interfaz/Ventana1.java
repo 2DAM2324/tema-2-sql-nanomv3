@@ -2270,8 +2270,8 @@ public class Ventana1 extends javax.swing.JFrame {
         
             if(!relacion_introducir_producto_pedido.getText().isEmpty()){
                 
-                String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-                Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
+                Integer idPedidoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+                Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado.toString());
                 Producto p = controlador.getProductoPorId(relacion_introducir_producto_pedido.getText());
                     
                     if(p.getId()!=0){
@@ -2297,11 +2297,11 @@ public class Ventana1 extends javax.swing.JFrame {
         int fila_seleccionada = relacion_tabla_datos_producto_pedido.getSelectedRow();
 
         if (fila_seleccionada >= 0) {
-            String idPedido = (String) model_pedido.getValueAt(fila_pedido, 0);
-            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedido);
+            Integer idPedido = (Integer) model_pedido.getValueAt(fila_pedido, 0);
+            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedido.toString());
             
-            String idProductoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado);
+            Integer idProductoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+            Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado.toString());
 
             model.removeRow(fila_seleccionada);
 
@@ -2350,9 +2350,9 @@ public class Ventana1 extends javax.swing.JFrame {
         
             if(!relacion_introducir_pedido_producto.getText().isEmpty()){
                 
-                String idProductoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-                Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado);
-                Pedido p = controlador.getPedidoPorId(idProductoSeleccionado);
+                Integer idProductoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+                Producto productoSeleccionado = controlador.getProductoPorId(idProductoSeleccionado.toString());
+                Pedido p = controlador.getPedidoPorId(relacion_introducir_pedido_producto.getText());
                     
                     if(p.getId() != 0){
                         controlador.relacionProductoPedido(productoSeleccionado, p);
@@ -2377,11 +2377,11 @@ public class Ventana1 extends javax.swing.JFrame {
         int fila_seleccionada = relacion_tabla_datos_pedido_producto.getSelectedRow();
 
         if (fila_seleccionada >= 0) {
-            String idProducto = (String) model_pedido.getValueAt(fila_producto, 0);
-            Producto productoSeleccionado = controlador.getProductoPorId(idProducto);
+            Integer idProducto = (Integer) model_pedido.getValueAt(fila_producto, 0);
+            Producto productoSeleccionado = controlador.getProductoPorId(idProducto.toString());
             
-            String idPedidoSeleccionado = (String) model.getValueAt(fila_seleccionada, 0);
-            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado);
+            Integer idPedidoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+            Pedido pedidoSeleccionado = controlador.getPedidoPorId(idPedidoSeleccionado.toString());
 
             model.removeRow(fila_seleccionada);
 
