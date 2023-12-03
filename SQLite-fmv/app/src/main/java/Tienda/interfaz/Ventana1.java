@@ -1448,7 +1448,7 @@ public class Ventana1 extends javax.swing.JFrame {
 
         nombre_label_empleado.setText("Nombre:");
 
-        cargo_label_empleado.setText("Cargo:");
+        cargo_label_empleado.setText("Cargo (Empleado / Encargado):");
 
         jLabel13.setText("Cliente del pedido");
 
@@ -1537,10 +1537,10 @@ public class Ventana1 extends javax.swing.JFrame {
                         .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panel_empleadoLayout.createSequentialGroup()
-                                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nombre_label_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cargo_label_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cargo_label_empleado))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(introducir_nombre_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(introducir_cargo_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -1561,13 +1561,13 @@ public class Ventana1 extends javax.swing.JFrame {
                         .addComponent(button_del_empleado)))
                 .addGap(32, 32, 32)
                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(introducir_nombre_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nombre_label_empleado))
+                    .addComponent(nombre_label_empleado)
+                    .addComponent(introducir_nombre_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(introducir_cargo_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cargo_label_empleado))
-                .addGap(202, 202, 202)
+                    .addComponent(cargo_label_empleado)
+                    .addComponent(introducir_cargo_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(212, 212, 212)
                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_empleadoLayout.createSequentialGroup()
                         .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1579,7 +1579,7 @@ public class Ventana1 extends javax.swing.JFrame {
                     .addComponent(relacion_cliente_empleado_del_button, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         paginas.addTab("Empleado", panel_empleado);
@@ -1869,17 +1869,25 @@ public class Ventana1 extends javax.swing.JFrame {
         try{
             
             if (fila_seleccionada >= 0) {
-                System.out.println("Entro en if");
-                Integer idEmpleadoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
-                System.out.println("id: "+ idEmpleadoSeleccionado);
-                Empleado empleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado.toString());
-                Empleado e = new Empleado(introducir_nombre_empleado.getText(), introducir_cargo_empleado.getText());
-                
-                controlador.modificarEmpleado(empleadoSeleccionado, e);
-                ArrayList<Empleado> empleados = controlador.listaEmpleados();
-                
-                mostrarDatosEmpleado(empleados);
-                
+                if(introducir_nombre_empleado.getText().matches("[a-zA-Z·ÈÌÛ˙¡…Õ”⁄¸‹Ò—]+")){
+                    String cargoLowerCase = introducir_cargo_empleado.getText().toLowerCase();
+                    if(cargoLowerCase.equals("empleado") || cargoLowerCase.equals("encargado")){ 
+                        System.out.println("Entro en if");
+                        Integer idEmpleadoSeleccionado = (Integer) model.getValueAt(fila_seleccionada, 0);
+                        System.out.println("id: "+ idEmpleadoSeleccionado);
+                        Empleado empleadoSeleccionado = controlador.getEmpleadoPorId(idEmpleadoSeleccionado.toString());
+                        Empleado e = new Empleado(introducir_nombre_empleado.getText(), introducir_cargo_empleado.getText());
+
+                        controlador.modificarEmpleado(empleadoSeleccionado, e);
+                        ArrayList<Empleado> empleados = controlador.listaEmpleados();
+
+                        mostrarDatosEmpleado(empleados);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "El estado debe ser \"Empleado\" o \"Encargado\"", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Formato de nombre incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, selecciona un empleado para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -1891,19 +1899,25 @@ public class Ventana1 extends javax.swing.JFrame {
     private void button_add_empleadoActionPerformed(java.awt.event.ActionEvent evt){
         if (!introducir_nombre_empleado.getText().isEmpty() && 
         !introducir_cargo_empleado.getText().isEmpty()) {
+            if(introducir_nombre_empleado.getText().matches("[a-zA-Z·ÈÌÛ˙¡…Õ”⁄¸‹Ò—]+")){
+                String cargoLowerCase = introducir_cargo_empleado.getText().toLowerCase();
+                if(cargoLowerCase.equals("empleado") || cargoLowerCase.equals("encargado")){ 
+                    Empleado e = new Empleado(introducir_nombre_empleado.getText(), cargoLowerCase);
 
-            Empleado e = new Empleado(introducir_nombre_empleado.getText(), introducir_cargo_empleado.getText());
+                    if (controlador.comprobarId(e)) {
+                        controlador.agregarEmpleado(e);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No pueden coincidir las DNIs.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
 
-            if (controlador.comprobarId(e)) {
-                controlador.agregarEmpleado(e);
-            } else {
-                JOptionPane.showMessageDialog(this, "No pueden coincidir las DNIs.", "Error", JOptionPane.ERROR_MESSAGE);
+                    ArrayList<Empleado> empleados = controlador.listaEmpleados();
+                    mostrarDatosEmpleado(empleados);
+                }else{
+                    JOptionPane.showMessageDialog(this, "El estado debe ser \"Empleado\" o \"Encargado\"", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Formato de nombre incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-            ArrayList<Empleado> empleados = controlador.listaEmpleados();
-            mostrarDatosEmpleado(empleados);
-            //TODO: Leer los clientes del XML
-
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, complete la informaciÛn.", "Error", JOptionPane.ERROR_MESSAGE);
         }
